@@ -50,6 +50,3 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ## EKİP ŞEMASI
 
 ![Sema](/assets/sema.png)
-
-
-![GitHub Light](https://github.com/github-light.png#gh-dark-mode-only)
