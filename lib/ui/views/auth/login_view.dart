@@ -58,7 +58,13 @@ class _LoginViewState extends State<LoginView> {
               style: TextStyleManager.instance.headline1BlackBold,
             ),
             SizedBox(
-              height: Utility.dynamicHeight(0.15),
+              height: Utility.dynamicHeight(0.05),
+            ),
+            Image.asset("assets/readme/paypara-logo.png",
+                height: Utility.dynamicHeight(0.25),
+                width: Utility.dynamicWidth(90)),
+            SizedBox(
+              height: Utility.dynamicHeight(0.05),
             ),
             textField(textInputModel: email),
             SizedBox(
