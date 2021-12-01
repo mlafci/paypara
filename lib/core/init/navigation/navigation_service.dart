@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/ui/views/auth/login_view.dart';
+import 'package:paypara/ui/views/auth/register_view.dart';
+import 'package:paypara/ui/views/auth/reset_password_view.dart';
 import 'package:paypara/ui/views/home/home_view.dart';
 
 class NavigationService {
@@ -38,6 +40,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => HomeView());
     case NavigationConstants.loginView:
       return MaterialPageRoute(builder: (_) => LoginView());
+    case NavigationConstants.registerView:
+      return MaterialPageRoute(builder: (_) => RegisterView());
+    case NavigationConstants.resetPasswordView:
+      return MaterialPageRoute(builder: (_) => ResetPasswordView());
     default:
       return null;
   }

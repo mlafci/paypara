@@ -60,10 +60,10 @@ class AuthService {
       "surname": surname,
       "image": image,
     };
-    Response response = await NetworkManager.instance.login(model);
+    Response response = await NetworkManager.instance.register(model);
     if (response.statusCode == 200) {
-      /*user = User.fromJson(jsonDecode(response.body));
-      NavigationService.navigateToPage(context, NavigationConstants.homeView);*/
+      user = User.fromJson(jsonDecode(response.body));
+      NavigationService.navigateToPage(context, NavigationConstants.loginView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
