@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:paypara/core/constant/navigation_constant.dart';
-import 'package:paypara/view/home/home_view.dart';
+import 'package:paypara/core/constants/navigation_constant.dart';
+import 'package:paypara/ui/views/auth/login_view.dart';
+import 'package:paypara/ui/views/home/home_view.dart';
 
 class NavigationService {
   static navigateToPage(BuildContext context, String path,
@@ -35,6 +36,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case NavigationConstants.homeView:
       return MaterialPageRoute(builder: (_) => HomeView());
+    case NavigationConstants.loginView:
+      return MaterialPageRoute(builder: (_) => LoginView());
     default:
       return null;
   }

@@ -17,11 +17,11 @@ class AppTheme {
   ThemeData get theme => ThemeData(
         fontFamily: fontRegular,
         appBarTheme: AppBarTheme(
-          backgroundColor: ColorManager.instance.green,
+          backgroundColor: ColorManager.instance.white,
           foregroundColor: ColorManager.instance.white,
           elevation: 0,
           centerTitle: true,
         ),
-        scaffoldBackgroundColor: ColorManager.instance.lightGrey,
+        scaffoldBackgroundColor: ColorManager.instance.white,
       );
 }

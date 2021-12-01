@@ -1,6 +1,6 @@
 class Utility {
   static double height, width;
-  static double borderRadius = dynamicHeight(0.01);
+  static double borderRadius = dynamicWidth(0.05);
 
   static double dynamicHeight(double value) => height * value;
   static double dynamicWidth(double value) => width * value;

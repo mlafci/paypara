@@ -30,111 +30,17 @@ class TextStyleManager {
         fontFamily: bold,
       );
 
-  // headline2
-  TextStyle get headline2GreenBold => TextStyle(
-        color: ColorManager.instance.green,
-        fontSize: headline2,
-        fontFamily: bold,
-      );
-
-  // headline3
-  TextStyle get headline3WhiteBold => TextStyle(
-        color: ColorManager.instance.white,
-        fontSize: headline3,
-        fontFamily: bold,
-      );
-
   // headline4
   TextStyle get headline4WhiteMedium => TextStyle(
         color: ColorManager.instance.white,
         fontSize: headline4,
         fontFamily: medium,
       );
-  TextStyle get headline4GreenMedium => TextStyle(
-        color: ColorManager.instance.green,
-        fontSize: headline4,
-        fontFamily: medium,
-      );
 
   // headline5
-  TextStyle get headline5BlackRegular => TextStyle(
-        color: ColorManager.instance.black,
-        fontSize: headline5,
-        fontFamily: regular,
-      );
-
-  TextStyle get headline5BlackBold => TextStyle(
-        color: ColorManager.instance.black,
-        fontSize: headline5,
-        fontFamily: bold,
-      );
-
-  TextStyle get headline5GreyRegular => TextStyle(
-        color: ColorManager.instance.grey,
-        fontSize: headline5,
-        fontFamily: regular,
-      );
-
   TextStyle get headline5WhiteMedium => TextStyle(
         color: ColorManager.instance.white,
         fontSize: headline5,
-        fontFamily: medium,
-      );
-
-  TextStyle get headline5GreenMedium => TextStyle(
-        color: ColorManager.instance.green,
-        fontSize: headline5,
-        fontFamily: medium,
-      );
-
-  // body1
-  TextStyle get body1GreyRegular => TextStyle(
-        color: ColorManager.instance.grey,
-        fontSize: body1,
-        fontFamily: regular,
-      );
-  TextStyle get body1BlackRegular => TextStyle(
-        color: ColorManager.instance.black,
-        fontSize: body1,
-        fontFamily: regular,
-      );
-
-  // body2
-  TextStyle get body2BlackBold => TextStyle(
-        color: ColorManager.instance.black,
-        fontSize: body2,
-        fontFamily: bold,
-      );
-
-  TextStyle get body2BlackRegular => TextStyle(
-        color: ColorManager.instance.black,
-        fontSize: body2,
-        fontFamily: regular,
-      );
-  TextStyle get body2GreyMedium => TextStyle(
-        color: ColorManager.instance.grey,
-        fontSize: body2,
-        fontFamily: medium,
-      );
-  TextStyle get body2DarkGreenMedium => TextStyle(
-        color: ColorManager.instance.darkGreen,
-        fontSize: body2,
-        fontFamily: medium,
-      );
-  TextStyle get body2GreenMedium => TextStyle(
-        color: ColorManager.instance.green,
-        fontSize: body2,
-        fontFamily: medium,
-      );
-
-  TextStyle get body2GreenRegular => TextStyle(
-        color: ColorManager.instance.green,
-        fontSize: body2,
-        fontFamily: regular,
-      );
-  TextStyle get body2DarkGreyMedium => TextStyle(
-        color: ColorManager.instance.darkGrey,
-        fontSize: body2,
         fontFamily: medium,
       );
 }

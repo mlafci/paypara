@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
+import 'package:paypara/services/auth/auth_service.dart';
 
 class HomeView extends StatefulWidget {
   @override
