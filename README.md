@@ -53,8 +53,6 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 
 #
 #
-#
-
 
 -----------------------------
 ## 09.12.2021 GÜNCELLEMELERİ
