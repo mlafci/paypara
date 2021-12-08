@@ -68,5 +68,5 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ## GRUP PARA BİRİMİ SEÇME
 ![Para Birimi Seçme](assets/readme/para_birimi_secme.png)
 
-## GRUP KİŞİ EKLEME
+## GRUP İSMİ VE KİŞİ EKLEME
 ![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
