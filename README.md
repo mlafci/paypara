@@ -59,6 +59,14 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 
 ### GRUP OLUŞTURMA EKRANI
 
-## GRUP PROFİL FOTOĞRAFI DÜZENLEME
+## GRUP PROFİL FOTOĞRAFI SEÇME
 ![Grup Profil Fotoğrafı](/assets/readme/grup_profil_fotograf.png)
 
+## GRUP PROFİL FOTOĞRAF DÜZENLEME
+![Profil Fotoğradı Düzenleme](assets/readme/grup_fotograf_duzenleme.png)
+
+## GRUP PARA BİRİMİ SEÇME
+![Para Birimi Seçme](assets/readme/para_birimi_secme.png)
+
+## GRUP KİŞİ EKLEME
+![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
