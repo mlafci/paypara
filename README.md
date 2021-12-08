@@ -66,7 +66,7 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ![Profil Fotoğradı Düzenleme](assets/readme/grup_fotograf_duzenleme.png)
 
 ### GRUP PARA BİRİMİ SEÇME
-!![Para Birimi Seçme](assets/readme/para_birimi_secme.png)
+![Para Birimi Seçme](assets/readme/para_birimi_secme.png)
 
 ### GRUP İSMİ VE KİŞİ EKLEME
-!!![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
+![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
