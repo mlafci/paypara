@@ -73,9 +73,4 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
 
 ### VERİ TABANI 
-![Veri Tabanı 1](assets/readme/Veri Tabanı.png)
-![Veri Tabanı 2](assets/readme/Veri Tabanı 2.png)
-![Veri Tabanı 3](assets/readme/Veri Tabanı 3.png)
-![Veri Tabanı 4](assets/readme/Veri Tabanı 4.png)
-![Veri Tabanı 5](assets/readme/Veri Tabanı 5.png)
-![Veri Tabanı 6](assets/readme/Veri Tabanı 6.png)
+
