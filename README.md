@@ -51,6 +51,9 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 
 ![Sema](/assets/readme/sema.png)
 
+#
+#
+#
 
 
 -----------------------------
