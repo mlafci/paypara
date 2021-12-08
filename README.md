@@ -50,3 +50,15 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ## EKİP ŞEMASI
 
 ![Sema](/assets/readme/sema.png)
+
+
+
+-----------------------------
+### 09.12.2021 GÜNCELLEMELERİ
+-----------------------------
+
+### GRUP OLUŞTURMA EKRANI
+
+## GRUP PROFİL FOTOĞRAFI DÜZENLEME
+![Grup Profil Fotoğrafı](/assets/readme/grup_profil_fotograf.png)
+
