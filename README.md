@@ -50,3 +50,35 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ## EKİP ŞEMASI
 
 ![Sema](/assets/readme/sema.png)
+
+#
+#
+
+-----------------------------
+## 09.12.2021 GÜNCELLEMELERİ
+-----------------------------
+
+## GRUP OLUŞTURMA EKRANI
+
+### GRUP PROFİL FOTOĞRAFI SEÇME
+![Grup Profil Fotoğrafı](/assets/readme/grup_profil_fotograf.png)
+
+### GRUP PROFİL FOTOĞRAF DÜZENLEME
+![Profil Fotoğradı Düzenleme](assets/readme/grup_fotograf_duzenleme.png)
+
+### GRUP PARA BİRİMİ SEÇME
+![Para Birimi Seçme](assets/readme/para_birimi_secme.png)
+
+### GRUP İSMİ VE KİŞİ EKLEME
+![Kişi Ekleme](assets/readme/grup_kisi_ekleme.png)
+
+### VERİ TABANI 
+
+![Veri Tabanı 1](assets/readme/veri_tabani_1.png)
+![Veri Tabanı 2](assets/readme/veri_tabani_2.png)
+![Veri Tabanı 3](assets/readme/veri_tabani_3.png)
+![Veri Tabanı 4](assets/readme/veri_tabani_4.png)
+![Veri Tabanı 5](assets/readme/veri_tabani_5.png)
+![Veri Tabanı 6](assets/readme/veri_tabani_6.png)
+
+
