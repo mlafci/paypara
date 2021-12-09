@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
-import 'package:paypara/models/user/user.dart';
+import 'package:paypara/models/account/account.dart';
 import 'package:paypara/services/network/network_manager.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
 
@@ -17,7 +17,7 @@ class AuthService {
 
   AuthService._init();
 
-  User user = new User();
+  Account user = new Account();
 
   Future login({
     BuildContext context,
@@ -30,8 +30,8 @@ class AuthService {
     };
     Response response = await NetworkManager.instance.login(model);
     if (response.statusCode == 200) {
-      user = User.fromJson(jsonDecode(response.body));
-      NavigationService.navigateToPage(context, NavigationConstants.homeView);
+      user = Account.fromJson(jsonDecode(response.body));
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -62,7 +62,7 @@ class AuthService {
     };
     Response response = await NetworkManager.instance.register(model);
     if (response.statusCode == 200) {
-      user = User.fromJson(jsonDecode(response.body));
+      user = Account.fromJson(jsonDecode(response.body));
       NavigationService.navigateToPage(context, NavigationConstants.loginView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:paypara/core/base/state/utility.dart';
+import 'package:paypara/core/init/debouncer/debouncer.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
-import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
 
 Widget textField({
@@ -20,6 +20,7 @@ Widget textField({
       controller: textInputModel.controller,
       focusNode: textInputModel.focusNode,
       //style: TextStyleManager.instance.headline5BlackRegular,
+      obscureText: textInputModel.obsecureText,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           vertical: Utility.dynamicHeight(0.02),
@@ -37,9 +38,7 @@ Widget textField({
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Utility.borderRadius),
           borderSide: BorderSide(
-            color: (readOnly)
-                ? ColorManager.instance.grey
-                : ColorManager.instance.blue,
+            color: (readOnly) ? ColorManager.instance.grey : ColorManager.instance.blue,
             width: 1.5,
           ),
           gapPadding: 2,
@@ -72,7 +71,15 @@ Widget textField({
         //hintStyle: TextStyleManager.instance.headline5GreyRegular,
       ),
       onChanged: (value) {
-        function();
+        if (function != null) {
+          if (textInputModel.isSearchText) {
+            Debouncer.instance.run(() {
+              function();
+            });
+          } else {
+            function();
+          }
+        }
       },
       onTap: onTap,
       cursorColor: ColorManager.instance.black,

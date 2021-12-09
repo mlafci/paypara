@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 class NetworkService {
   static Future<dynamic> requsetGet({
     String path,
-    Map<String, dynamic> data,
+    dynamic data,
   }) async {
     Uri url = Uri.https(NetworkConstants.baseUrl, path, data);
     Response response = await get(
@@ -20,9 +20,9 @@ class NetworkService {
 
   static Future<dynamic> requsetPost({
     String path,
-    Map<String, dynamic> data,
+    dynamic data,
   }) async {
-    Uri url = Uri.https(NetworkConstants.baseUrl, path, data);
+    Uri url = Uri.https(NetworkConstants.baseUrl, path);
     Response response = await post(
       url,
       body: jsonEncode(data),
@@ -36,7 +36,7 @@ class NetworkService {
 
   static Future<dynamic> requsetDelete({
     String path,
-    Map<String, dynamic> data,
+    dynamic data,
   }) async {
     Uri url = Uri.https(NetworkConstants.baseUrl, path, data);
     Response response = await delete(
@@ -52,7 +52,7 @@ class NetworkService {
 
   static Future<dynamic> requsetPut({
     String path,
-    Map<String, dynamic> data,
+    dynamic data,
   }) async {
     Uri url = Uri.https(NetworkConstants.baseUrl, path, data);
     Response response = await put(

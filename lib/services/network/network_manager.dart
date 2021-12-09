@@ -9,16 +9,29 @@ class NetworkManager {
 
   NetworkManager._init();
 
-  Future login(Map<String, dynamic> data) async {
+  Future login(dynamic data) async {
     return await NetworkService.requsetPost(
       path: "/accounts/login",
       data: data,
     );
   }
 
-  Future register(Map<String, dynamic> data) async {
+  Future register(dynamic data) async {
     return await NetworkService.requsetPost(
       path: "/accounts/register",
+      data: data,
+    );
+  }
+
+  Future searchUser(dynamic data) async {
+    return await NetworkService.requsetGet(
+      path: "/user/searchByUserName/$data",
+    );
+  }
+
+  Future addGroup(dynamic data) async {
+    return await NetworkService.requsetPost(
+      path: "/groups",
       data: data,
     );
   }
