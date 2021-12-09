@@ -29,10 +29,42 @@ class TextStyleManager {
         fontSize: headline1,
         fontFamily: bold,
       );
+// h1
+  TextStyle get headline1BlackMedium => TextStyle(
+        color: ColorManager.instance.black,
+        fontSize: headline1,
+        fontFamily: medium,
+      );
+
+// h2
+  TextStyle get headline2BlackMedium => TextStyle(
+        color: ColorManager.instance.black,
+        fontSize: headline2,
+        fontFamily: medium,
+      );
+
+  // h3
+  TextStyle get headline3BlackMedium => TextStyle(
+        color: ColorManager.instance.black,
+        fontSize: headline3,
+        fontFamily: medium,
+      );
+
+// h3 bold
+  TextStyle get headline3BlackBold => TextStyle(
+        color: ColorManager.instance.black,
+        fontSize: headline3,
+        fontFamily: bold,
+      );
 
   // headline4
   TextStyle get headline4WhiteMedium => TextStyle(
         color: ColorManager.instance.white,
+        fontSize: headline4,
+        fontFamily: medium,
+      );
+  TextStyle get headline4BlackMedium => TextStyle(
+        color: ColorManager.instance.black,
         fontSize: headline4,
         fontFamily: medium,
       );

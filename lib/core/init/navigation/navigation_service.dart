@@ -3,11 +3,11 @@ import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/ui/views/auth/login_view.dart';
 import 'package:paypara/ui/views/auth/register_view.dart';
 import 'package:paypara/ui/views/auth/reset_password_view.dart';
+import 'package:paypara/ui/views/auth/recent_expenses_view.dart';
 import 'package:paypara/ui/views/home/home_view.dart';
 
 class NavigationService {
-  static navigateToPage(BuildContext context, String path,
-      [Object data]) async {
+  static navigateToPage(BuildContext context, String path, [Object data]) async {
     var result = await Navigator.pushNamed(
       context,
       path,
@@ -23,8 +23,7 @@ class NavigationService {
     );
   }
 
-  static navigateToPageClear(BuildContext context, String path,
-      [Object data]) async {
+  static navigateToPageClear(BuildContext context, String path, [Object data]) async {
     await Navigator.pushNamedAndRemoveUntil(
       context,
       path,
@@ -44,6 +43,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => RegisterView());
     case NavigationConstants.resetPasswordView:
       return MaterialPageRoute(builder: (_) => ResetPasswordView());
+    case NavigationConstants.recentExpensesView:
+      return MaterialPageRoute(builder: (_) => RecentExpensesView());
     default:
       return null;
   }
