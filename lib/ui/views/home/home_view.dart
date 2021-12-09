@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
@@ -15,6 +16,14 @@ class _HomeViewState extends State<HomeView> {
     Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
     Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          NavigationService.navigateToPage(context, NavigationConstants.newGroupView);
+        },
+        child: Icon(
+          CupertinoIcons.add,
+        ),
+      ),
       body: Center(
         child: Text(
           "Home",

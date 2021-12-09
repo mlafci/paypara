@@ -1,3 +1,3 @@
 class AssetConstant {
-  // static const logo = "assets/images/paypara.png";
+  static const user = "assets/images/user.png";
 }

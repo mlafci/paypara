@@ -1,52 +1,41 @@
-class User {
-  User({
-    this.result,
-  });
+import 'dart:convert';
+import 'dart:typed_data';
 
-  Result result;
+class User {
+  List<UserItem> userItem;
+  User({
+    this.userItem,
+  });
 
   factory User.fromJson(dynamic json) {
+    var list = json["result"] as List;
+    List<UserItem> userItem = list.map((i) => UserItem.fromJson(i)).toList();
     return User(
-      result: Result.fromJson(json["result"]),
+      userItem: userItem,
     );
   }
 }
 
-class Result {
-  Result({
-    this.token,
-    this.refreshToken,
-    this.userId,
-    this.userName,
-    this.claims,
-  });
-
-  String token;
-  String refreshToken;
-  String userId;
-  String userName;
-  List<Claims> claims;
-
-  factory Result.fromJson(dynamic json) {
-    var list = json['claims'] as List;
-    List<Claims> claims = list.map((i) => Claims.fromJson(i)).toList();
-    return Result(
-      token: json["token"],
-      refreshToken: json["refreshToken"],
-      userId: json["userId"],
-      userName: json["userName"],
-      claims: claims,
-    );
-  }
-}
-
-class Claims {
-  Claims({
-    this.name,
-  });
+class UserItem {
+  String id;
+  String email;
   String name;
-
-  factory Claims.fromJson(Map<String, dynamic> json) => Claims(
-        name: json["name"],
-      );
+  String userName;
+  Uint8List image;
+  UserItem({
+    this.id,
+    this.email,
+    this.name,
+    this.userName,
+    this.image,
+  });
+  factory UserItem.fromJson(Map<String, dynamic> json) {
+    return UserItem(
+      id: json['id'],
+      email: json['email'],
+      name: json['name'],
+      userName: json['userName'],
+      image: base64Decode(json['image']),
+    );
+  }
 }

@@ -41,5 +41,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Fotoğraf yüklemek için kameraya erişime izin verin</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Fotoğraf yüklemek için galeriye erişime izin verin</string>
 </dict>
 </plist>

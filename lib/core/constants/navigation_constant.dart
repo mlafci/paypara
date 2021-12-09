@@ -4,4 +4,5 @@ class NavigationConstants {
   static const registerView = "/register_view";
   static const resetPasswordView = "/reset_password_view";
   static const recentExpensesView = "/recent_expenses_view";
+  static const newGroupView = "/new_group_view";
 }

@@ -5,6 +5,7 @@ import 'package:paypara/ui/views/auth/register_view.dart';
 import 'package:paypara/ui/views/auth/reset_password_view.dart';
 import 'package:paypara/ui/views/auth/recent_expenses_view.dart';
 import 'package:paypara/ui/views/home/home_view.dart';
+import 'package:paypara/ui/views/home/new_group_view.dart';
 
 class NavigationService {
   static navigateToPage(BuildContext context, String path, [Object data]) async {
@@ -45,6 +46,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (_) => ResetPasswordView());
     case NavigationConstants.recentExpensesView:
       return MaterialPageRoute(builder: (_) => RecentExpensesView());
+    case NavigationConstants.newGroupView:
+      return MaterialPageRoute(builder: (_) => NewGroupView());
     default:
       return null;
   }

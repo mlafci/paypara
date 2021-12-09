@@ -5,7 +5,7 @@ class TextInputModel {
   TextEditingController controller;
   FocusNode focusNode;
   String errorText, hintText;
-  bool isSuccessful = false;
+  bool isSuccessful = false, obsecureText = false, isSearchText = false;
   Icon icon;
   TextInputType textInputType;
   List<TextInputFormatter> textInputFormatter;
@@ -16,6 +16,8 @@ class TextInputModel {
     TextInputType textInputType,
     List<TextInputFormatter> textInputFormatter,
     Icon icon,
+    bool obsecureText,
+    bool isSearchText,
   }) {
     focusNode = FocusNode();
     controller = TextEditingController();
@@ -24,5 +26,15 @@ class TextInputModel {
     this.textInputType = textInputType;
     this.textInputFormatter = textInputFormatter;
     this.icon = icon;
+    if (obsecureText == null) {
+      this.obsecureText = false;
+    } else {
+      this.obsecureText = obsecureText;
+    }
+    if (isSearchText == null) {
+      this.isSearchText = false;
+    } else {
+      this.isSearchText = isSearchText;
+    }
   }
 }

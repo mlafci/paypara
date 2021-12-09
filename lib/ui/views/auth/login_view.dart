@@ -30,16 +30,15 @@ class _LoginViewState extends State<LoginView> {
         CupertinoIcons.lock,
         color: ColorManager.instance.pink,
       ),
+      obsecureText: true,
     );
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Utility.height =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -60,9 +59,7 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(
               height: Utility.dynamicHeight(0.05),
             ),
-            Image.asset("assets/readme/paypara-logo.png",
-                height: Utility.dynamicHeight(0.25),
-                width: Utility.dynamicWidth(90)),
+            Image.asset("assets/readme/paypara-logo.png", height: Utility.dynamicHeight(0.25), width: Utility.dynamicWidth(90)),
             SizedBox(
               height: Utility.dynamicHeight(0.05),
             ),
