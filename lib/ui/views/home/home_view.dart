@@ -30,11 +30,6 @@ class _HomeViewState extends State<HomeView> {
           style: TextStyleManager.instance.headline1BlackBold,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          NavigationService.navigateToPage(context, NavigationConstants.recentExpensesView);
-        },
-      ),
     );
   }
 }
