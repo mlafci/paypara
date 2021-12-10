@@ -3,7 +3,7 @@ import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/ui/views/auth/login_view.dart';
 import 'package:paypara/ui/views/auth/register_view.dart';
 import 'package:paypara/ui/views/auth/reset_password_view.dart';
-import 'package:paypara/ui/views/auth/recent_expenses_view.dart';
+import 'package:paypara/ui/views/expenses/recent_expenses_view.dart';
 import 'package:paypara/ui/views/home/home_view.dart';
 import 'package:paypara/ui/views/home/new_group_view.dart';
 
