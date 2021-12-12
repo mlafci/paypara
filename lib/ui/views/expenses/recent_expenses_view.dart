@@ -13,24 +13,25 @@ class RecentExpensesView extends StatefulWidget {
 }
 
 class _RecentExpensesViewState extends State<RecentExpensesView> {
-  ListTileModel listTile;
   DateTime selectedDate = DateTime.now();
 
-  @override
-  void initState() {
-    listTile = ListTileModel(
-      leading: CircleAvatar(
-        child: Icon(Icons.ac_unit),
-      ),
-      title: Text('Shopping'),
-      subtitle: Text('22.12.2021'),
-      trailing: Text(
-        '-2.000',
-        style: TextStyle(color: Colors.red),
-      ),
-    );
-    super.initState();
-  }
+  List<Map<String, dynamic>> expenses = [
+    {
+      "categoryId": 1,
+      "price": 0,
+      "date": "2021-12-12",
+    },
+    {
+      "categoryId": 2,
+      "price": 0,
+      "date": "2021-12-12",
+    },
+    {
+      "categoryId": 1,
+      "price": 0,
+      "date": "2021-12-12",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +39,19 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
     Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
         appBar: appBar(
-            text: 'Son Harcamalar',
-            isBack: true,
-            action: Padding(
+          text: 'Son Harcamalar',
+          isBack: true,
+          actions: [
+            Padding(
               padding: EdgeInsets.all(15.0),
               child: IconButton(
                 icon: Icon(Icons.date_range),
                 onPressed: () => _selectDate(context),
                 color: Colors.red,
               ),
-            )),
+            )
+          ],
+        ),
         body: Padding(
           padding: EdgeInsets.all(Utility.dynamicWidth(0.04)),
           child: Container(
@@ -65,13 +69,17 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                   ),
                 ),
                 Container(
-                  height: Utility.dynamicHeight(0.23),
+                  height: Utility.dynamicHeight(0.3),
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: 2,
+                      itemCount: expenses.length,
                       itemBuilder: (context, index) {
-                        return listTileWidget(listTileModel: listTile);
+                        return listTileWidget(
+                          categoryId: expenses[index]['categoryId'],
+                          date: expenses[index]['date'],
+                          price: expenses[index]['price'],
+                        );
                       }),
                 ),
                 SizedBox(
@@ -88,12 +96,16 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                   ),
                 ),
                 Container(
-                  height: Utility.dynamicHeight(0.45),
+                  height: Utility.dynamicHeight(0.3),
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: expenses.length,
                       itemBuilder: (context, index) {
-                        return listTileWidget(listTileModel: listTile);
+                        return listTileWidget(
+                          categoryId: expenses[index]['categoryId'],
+                          date: expenses[index]['date'],
+                          price: expenses[index]['price'],
+                        );
                       }),
                 ),
               ],

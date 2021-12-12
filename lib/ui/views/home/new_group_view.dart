@@ -44,7 +44,7 @@ class _NewGroupViewState extends State<NewGroupView> {
       ),
       isSearchText: true,
     );
-    groupUser.userItem = [];
+    groupUser.result = [];
     super.initState();
   }
 
@@ -180,7 +180,7 @@ class _NewGroupViewState extends State<NewGroupView> {
               width: Utility.dynamicWidth(0.9),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: groupUser.userItem.length,
+                itemCount: groupUser.result.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
@@ -193,7 +193,7 @@ class _NewGroupViewState extends State<NewGroupView> {
                             CircleAvatar(
                               radius: Utility.dynamicHeight(0.025),
                               backgroundImage: MemoryImage(
-                                groupUser.userItem[index].image,
+                                base64Decode(groupUser.result[index].image),
                               ),
                             ),
                             Positioned(
@@ -201,7 +201,7 @@ class _NewGroupViewState extends State<NewGroupView> {
                               bottom: 0,
                               child: GestureDetector(
                                 onTap: () async {
-                                  groupUser.userItem.removeAt(index);
+                                  groupUser.result.removeAt(index);
                                   setState(() {});
                                 },
                                 child: Container(
@@ -226,7 +226,7 @@ class _NewGroupViewState extends State<NewGroupView> {
                           height: Utility.dynamicHeight(0.005),
                         ),
                         Text(
-                          "${groupUser.userItem[index].name}",
+                          "${groupUser.result[index].name}",
                         ),
                       ],
                     ),
@@ -237,12 +237,12 @@ class _NewGroupViewState extends State<NewGroupView> {
             SizedBox(
               height: Utility.dynamicHeight(0.02),
             ),
-            (UserService.instance.user.userItem != null)
+            (UserService.instance.user.result != null)
                 ? Expanded(
                     child: Container(
                       width: Utility.dynamicWidth(0.9),
                       child: ListView.builder(
-                        itemCount: UserService.instance.user.userItem.length,
+                        itemCount: UserService.instance.user.result.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.only(
@@ -251,8 +251,8 @@ class _NewGroupViewState extends State<NewGroupView> {
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (!groupUser.userItem.any((element) => element.id == UserService.instance.user.userItem[index].id)) {
-                                    groupUser.userItem.add(UserService.instance.user.userItem[index]);
+                                  if (!groupUser.result.any((element) => element.id == UserService.instance.user.result[index].id)) {
+                                    groupUser.result.add(UserService.instance.user.result[index]);
                                   }
                                 });
                               },
@@ -262,14 +262,14 @@ class _NewGroupViewState extends State<NewGroupView> {
                                     CircleAvatar(
                                       radius: Utility.dynamicHeight(0.03),
                                       backgroundImage: MemoryImage(
-                                        UserService.instance.user.userItem[index].image,
+                                        base64Decode(UserService.instance.user.result[index].image),
                                       ),
                                     ),
                                     SizedBox(
                                       width: Utility.dynamicWidth(0.05),
                                     ),
                                     Text(
-                                      "${UserService.instance.user.userItem[index].name}",
+                                      "${UserService.instance.user.result[index].name}",
                                       style: TextStyleManager.instance.headline5BlackRegular,
                                     ),
                                   ],

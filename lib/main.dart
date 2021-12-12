@@ -19,7 +19,7 @@ Future main() async {
       theme: AppTheme.instance.theme,
       debugShowCheckedModeBanner: false,
       title: ApplicationConstants.appName,
-      initialRoute: NavigationConstants.newGroupView,
+      initialRoute: NavigationConstants.homeView,
       locale: Locale("tr", "TR"),
       supportedLocales: [Locale("tr", "TR")],
       localizationsDelegates: [

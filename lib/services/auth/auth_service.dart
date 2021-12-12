@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/core/init/navigation/navigation_service.dart';
+import 'package:paypara/core/init/network/network_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/models/account/account.dart';
-import 'package:paypara/services/network/network_manager.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
 
 class AuthService {
