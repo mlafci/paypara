@@ -12,9 +12,10 @@ class BaseService {
     BaseURL baseUrl,
     String path,
     IBaseModel model,
+    Map<String, dynamic> data,
   }) async {
     final response = await http.get(
-      Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
+      Uri.http(ApplicationConstants.getBaseURL(baseUrl), path, data),
       headers: {
         "content-type": "application/json",
         'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),

@@ -3,6 +3,7 @@ import 'package:paypara/models/group/group.dart';
 import 'package:paypara/models/user/user.dart';
 import 'package:paypara/services/network/network_service.dart';
 import 'base_network.dart';
+import 'package:paypara/models/expense/expense.dart';
 
 class NetworkManager extends BaseService {
   static NetworkManager _instance;
@@ -37,11 +38,28 @@ class NetworkManager extends BaseService {
     );
   }
 
+  Future<Group> getGroup({dynamic data}) async {
+    return await get<Group>(
+      baseUrl: BaseURL.URL,
+      path: "/groups/GetUserGroupsWithDetail/${data}",
+      model: Group(),
+    );
+  }
+
   Future<User> getSearchUser({dynamic data}) async {
     return await get<User>(
       baseUrl: BaseURL.URL,
       path: '/user/searchByUserName/$data',
       model: User(),
+    );
+  }
+
+  Future<Expense> getLastExpense({dynamic data}) async {
+    return await get<Expense>(
+      baseUrl: BaseURL.URL,
+      path: '/groups/GetExpensesByGroupId',
+      model: Expense(),
+      data: data,
     );
   }
 }

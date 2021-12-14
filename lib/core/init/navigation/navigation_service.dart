@@ -9,7 +9,8 @@ import 'package:paypara/ui/views/home/home_view.dart';
 import 'package:paypara/ui/views/home/new_group_view.dart';
 
 class NavigationService {
-  static navigateToPage(BuildContext context, String path, [Object data]) async {
+  static navigateToPage(BuildContext context, String path,
+      [Object data]) async {
     var result = await Navigator.pushNamed(
       context,
       path,
@@ -25,7 +26,8 @@ class NavigationService {
     );
   }
 
-  static navigateToPageClear(BuildContext context, String path, [Object data]) async {
+  static navigateToPageClear(BuildContext context, String path,
+      [Object data]) async {
     await Navigator.pushNamedAndRemoveUntil(
       context,
       path,
@@ -46,11 +48,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case NavigationConstants.resetPasswordView:
       return MaterialPageRoute(builder: (_) => ResetPasswordView());
     case NavigationConstants.recentExpensesView:
-      return MaterialPageRoute(builder: (_) => RecentExpensesView());
+      return MaterialPageRoute(
+          builder: (_) => RecentExpensesView(group: settings.arguments));
     case NavigationConstants.newGroupView:
       return MaterialPageRoute(builder: (_) => NewGroupView());
     case NavigationConstants.groupDetailView:
-      return MaterialPageRoute(builder: (_) => GroupDetailView());
+      return MaterialPageRoute(
+          builder: (_) => GroupDetailView(group: settings.arguments));
     default:
       return null;
   }

@@ -26,36 +26,53 @@ class Group extends IBaseModel {
 
 class Result {
   Result({
-    this.name,
-    this.currencyType,
-    this.image,
-    this.users,
-    this.adminUserId,
-    this.isActive,
+    this.groupDetails,
+    this.totalExpense,
   });
 
-  String name;
-  int currencyType;
-  String image;
-  List<String> users;
-  String adminUserId;
-  bool isActive;
+  List<GroupDetail> groupDetails;
+  int totalExpense;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-        name: json["name"],
-        currencyType: json["currencyType"],
-        image: json["image"],
-        users: List<String>.from(json["users"].map((x) => x)),
-        adminUserId: json["adminUserId"],
-        isActive: json["isActive"],
+        groupDetails: List<GroupDetail>.from(
+            json["groupDetails"].map((x) => GroupDetail.fromJson(x))),
+        totalExpense: json["totalExpense"],
       );
 
   Map<String, dynamic> toJson() => {
+        "groupDetails": List<dynamic>.from(groupDetails.map((x) => x.toJson())),
+        "totalExpense": totalExpense,
+      };
+}
+
+class GroupDetail {
+  GroupDetail({
+    this.id,
+    this.name,
+    this.currencyType,
+    this.groupImage,
+    this.priceStatus,
+  });
+
+  int id;
+  String name;
+  int currencyType;
+  String groupImage;
+  int priceStatus;
+
+  factory GroupDetail.fromJson(Map<String, dynamic> json) => GroupDetail(
+        id: json["id"],
+        name: json["name"],
+        currencyType: json["currencyType"],
+        groupImage: json["groupImage"] == null ? null : json["groupImage"],
+        priceStatus: json["priceStatus"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "currencyType": currencyType,
-        "image": image,
-        "users": List<dynamic>.from(users.map((x) => x)),
-        "adminUserId": adminUserId,
-        "isActive": isActive,
+        "groupImage": groupImage == null ? null : groupImage,
+        "priceStatus": priceStatus,
       };
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
+import 'package:paypara/core/constants/app_constant.dart';
 
-Widget listTileWidget({int categoryId, String date, int price}) {
+Widget listTileWidget(
+    {int categoryId, String subtitle, int price, int currencyType}) {
   return Card(
     child: ListTile(
       onTap: () {},
@@ -16,9 +18,9 @@ Widget listTileWidget({int categoryId, String date, int price}) {
       title: Text(
         getCategoryName(categoryId),
       ),
-      subtitle: Text(date),
+      subtitle: Text(subtitle),
       trailing: Text(
-        '$price',
+        '- $price ${ApplicationConstants.currencyList[currencyType]}',
         style: TextStyle(color: Colors.red),
       ),
     ),

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
+import 'package:paypara/models/group/group.dart';
 import 'package:paypara/ui/view_models/list_tile/list_tile_model.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
 
 class RecentExpensesView extends StatefulWidget {
-  RecentExpensesView({Key key}) : super(key: key);
+  final GroupDetail group;
+  RecentExpensesView({this.group});
 
   @override
   _RecentExpensesViewState createState() => _RecentExpensesViewState();
@@ -35,8 +37,10 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
         appBar: appBar(
           text: 'Son Harcamalar',
@@ -77,8 +81,9 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                       itemBuilder: (context, index) {
                         return listTileWidget(
                           categoryId: expenses[index]['categoryId'],
-                          date: expenses[index]['date'],
+                          subtitle: expenses[index]['date'],
                           price: expenses[index]['price'],
+                          currencyType: widget.group.currencyType,
                         );
                       }),
                 ),
@@ -103,8 +108,9 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                       itemBuilder: (context, index) {
                         return listTileWidget(
                           categoryId: expenses[index]['categoryId'],
-                          date: expenses[index]['date'],
+                          subtitle: expenses[index]['date'],
                           price: expenses[index]['price'],
+                          currencyType: widget.group.currencyType,
                         );
                       }),
                 ),
