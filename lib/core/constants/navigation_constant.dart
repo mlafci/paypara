@@ -6,4 +6,5 @@ class NavigationConstants {
   static const recentExpensesView = "/recent_expenses_view";
   static const newGroupView = "/new_group_view";
   static const groupDetailView = "/group_detail_view";
+  static const groupSettingView = "/group_setting_view";
 }

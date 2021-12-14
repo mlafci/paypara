@@ -5,6 +5,7 @@ import 'package:paypara/ui/views/auth/register_view.dart';
 import 'package:paypara/ui/views/auth/reset_password_view.dart';
 import 'package:paypara/ui/views/expenses/recent_expenses_view.dart';
 import 'package:paypara/ui/views/group/group_detail_view.dart';
+import 'package:paypara/ui/views/group/group_setting_view.dart';
 import 'package:paypara/ui/views/home/home_view.dart';
 import 'package:paypara/ui/views/home/new_group_view.dart';
 
@@ -55,6 +56,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case NavigationConstants.groupDetailView:
       return MaterialPageRoute(
           builder: (_) => GroupDetailView(group: settings.arguments));
+    case NavigationConstants.groupSettingView:
+        return MaterialPageRoute(
+          builder: (_) => GroupSettingView());
     default:
       return null;
   }
