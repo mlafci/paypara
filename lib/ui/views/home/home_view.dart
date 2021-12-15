@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
                       width: Utility.dynamicWidth(0.05),
                     ),
                     Text(
-                      "GruplarÄ±m",
+                      "Gruplarım",
                       style: TextStyleManager.instance.headline2BlackMedium,
                     ),
                   ],
