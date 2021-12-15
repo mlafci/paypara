@@ -82,3 +82,16 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ![Veri Tabanı 6](assets/readme/veri_tabani_6.png)
 
 
+-----------------------------
+## 09.12.2021 GÜNCELLEMELERİ
+-----------------------------
+
+## GRUP AYARLAR EKRANI
+
+![Grup Ayarlar](assets/readme/grup-ayarlar2.PNG)
+
+## GRUP AYARLAR KİŞİ SİLME İŞLEMİ 
+
+![Grup Ayarlar Kişi Silme](assets/readme/grup-ayarlar-silme.PNG)
+
+
