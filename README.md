@@ -83,8 +83,19 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 
 
 -----------------------------
-## 09.12.2021 GÜNCELLEMELERİ
+## 16.12.2021 GÜNCELLEMELERİ
 -----------------------------
+## ANA SAYFA 
+
+![Grup Ayarlar](assets/readme/ana-sayfa-ss.PNG)
+
+## GRUP DETAY EKRANI
+
+![Grup Detay Ekranı](assets/readme/grup-detay-ekranı.PNG)
+
+## Son Harcamalar  Ekranı 
+
+![Harcama Detay Ekranı](assets/readme/son-harcamalar-ekranı.PNG)
 
 ## GRUP AYARLAR EKRANI
 
@@ -93,5 +104,10 @@ Grup içerisinde yapılacak iş yönetimi trello üzerinden yönetilecektir.
 ## GRUP AYARLAR KİŞİ SİLME İŞLEMİ 
 
 ![Grup Ayarlar Kişi Silme](assets/readme/grup-ayarlar-silme.PNG)
+
+![backendservice](assets/readme/backend-service.jpeg)
+
+![backendservice2](assets/readme/backend-service2.jpeg)
+
 
 
