@@ -28,14 +28,15 @@ class _GroupSettingViewState extends State<GroupSettingView> {
   User groupUser = new User();
 
   @override
-  void initState() {
+  void initState() {   
     groupName = TextInputModel(
-      hintText: "Grup Adı",
+      hintText: "Grup Adı",      
       icon: Icon(
         CupertinoIcons.mail,
         color: ColorManager.instance.pink,
       ),
     );
+    groupName.controller.text = "TemproaryData" ;
     userName = TextInputModel(
       hintText: "Kullanıcı Ara",
       icon: Icon(
@@ -55,6 +56,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
     Utility.width =
         MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       appBar: AppBar(
         toolbarHeight: 0,
         backgroundColor: ColorManager.instance.white,
@@ -62,16 +64,17 @@ class _GroupSettingViewState extends State<GroupSettingView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          GroupService.instance.addGroup(
-            context: context,
-            groupName: groupName,
-            currencyType: type,
-            image: groupImage.image,
-            groupUser: groupUser,
-          );
+          print("Kaydetme Servisi");
+          // GroupService.instance.addGroup(
+          //   context: context,
+          //   groupName: groupName,
+          //   currencyType: type,
+          //   image: groupImage.image,
+          //   groupUser: groupUser,
+          // );
         },
         child: Icon(
-          CupertinoIcons.checkmark_alt,
+          CupertinoIcons.floppy_disk,
         ),
       ),
       body: Container(
@@ -217,6 +220,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                               CupertinoDialogAction(
                                                 child: const Text('No'),
                                                 onPressed: () {
+                                                  FocusScope.of(context).unfocus();
                                                   Navigator.pop(context);
                                                 },
                                               ),
@@ -224,6 +228,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                 child: const Text('Yes'),
                                                 isDestructiveAction: true,
                                                 onPressed: () {
+                                                  //FocusScope.of(context).unfocus();
                                                   setState(() {
                                                      groupUser.result.removeAt(index);
                                                   });
@@ -298,7 +303,8 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                               CupertinoDialogAction(
                                                 child: const Text('No'),
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                  FocusScope.of(context).unfocus();
+                                                  Navigator.pop(context);                                                  
                                                 },
                                               ),
                                               CupertinoDialogAction(
@@ -312,6 +318,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                             .user
                                                             .result[index]);
                                                   });
+                                                  FocusScope.of(context).unfocus();
                                                   Navigator.pop(context);
                                                 },
                                               )
@@ -348,8 +355,19 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                       ),
                     ),
                   )
-                : Container(),
-          ],
+                : Container(height: Utility.dynamicHeight(0.305)),  
+              Container(
+              margin: EdgeInsets.only(bottom:Utility.dynamicHeight(0.02)),
+              width: Utility.dynamicWidth(0.5),
+              child: button(
+                text: "Gruptan Çık",
+                isPrimary: true,                
+                function: () {
+                  print("Gruptan Çık Servisi");
+                },
+              ),
+            )  
+          ],         
         ),
       ),
     );
