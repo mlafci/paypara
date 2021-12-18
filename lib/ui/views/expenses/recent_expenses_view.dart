@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
+import 'package:paypara/core/utils/date_util.dart';
 import 'package:paypara/models/group/group.dart';
-import 'package:paypara/ui/view_models/list_tile/list_tile_model.dart';
+import 'package:paypara/services/expense/expense_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
+import 'package:intl/intl.dart';
 
 class RecentExpensesView extends StatefulWidget {
   final GroupDetail group;
@@ -16,33 +18,26 @@ class RecentExpensesView extends StatefulWidget {
 
 class _RecentExpensesViewState extends State<RecentExpensesView> {
   DateTime selectedDate = DateTime.now();
-
-  List<Map<String, dynamic>> expenses = [
-    {
-      "categoryId": 1,
-      "price": 0,
-      "date": "2021-12-12",
-    },
-    {
-      "categoryId": 2,
-      "price": 0,
-      "date": "2021-12-12",
-    },
-    {
-      "categoryId": 1,
-      "price": 0,
-      "date": "2021-12-12",
-    },
-  ];
+  bool loading = false;
+  DateTime currentDate = DateTime.now();
+  String filteredText = 'Bugün';
+  @override
+  void initState() {
+    getLastExpensesByDate();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Utility.height =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+
+    var filteredExpenses = ExpenseService.instance.getExpensesByDate(currentDate);
+    var lastExpenses = ExpenseService.instance.getLastExpenses();
+
     return Scaffold(
         appBar: appBar(
+          context: context,
           text: 'Son Harcamalar',
           isBack: true,
           actions: [
@@ -50,7 +45,9 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
               padding: EdgeInsets.all(15.0),
               child: IconButton(
                 icon: Icon(Icons.date_range),
-                onPressed: () => _selectDate(context),
+                onPressed: () {
+                  _selectDate(context);
+                },
                 color: Colors.red,
               ),
             )
@@ -67,25 +64,23 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Bugün',
+                      filteredText,
                       style: TextStyleManager.instance.headline4BlackMedium,
                     ),
                   ),
                 ),
-                Container(
-                  height: Utility.dynamicHeight(0.3),
+                Expanded(
                   child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: expenses.length,
-                      itemBuilder: (context, index) {
-                        return listTileWidget(
-                          categoryId: expenses[index]['categoryId'],
-                          subtitle: expenses[index]['date'],
-                          price: expenses[index]['price'],
-                          currencyType: widget.group.currencyType,
-                        );
-                      }),
+                    itemCount: filteredExpenses.length,
+                    itemBuilder: (context, index) {
+                      return listTileWidget(
+                          categoryId: filteredExpenses[index].categoryId,
+                          subtitle:
+                              "${filteredExpenses[index].date.day}/${filteredExpenses[index].date.month}/${filteredExpenses[index].date.year}     (${filteredExpenses[index].nameSurname})",
+                          price: filteredExpenses[index].price,
+                          currencyType: widget.group.currencyType);
+                    },
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -95,24 +90,23 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Geçen Hafta',
+                      'Geçmiş Harcamalar',
                       style: TextStyleManager.instance.headline4BlackMedium,
                     ),
                   ),
                 ),
-                Container(
-                  height: Utility.dynamicHeight(0.3),
+                Expanded(
                   child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: expenses.length,
-                      itemBuilder: (context, index) {
-                        return listTileWidget(
-                          categoryId: expenses[index]['categoryId'],
-                          subtitle: expenses[index]['date'],
-                          price: expenses[index]['price'],
-                          currencyType: widget.group.currencyType,
-                        );
-                      }),
+                    itemCount: lastExpenses.length,
+                    itemBuilder: (context, index) {
+                      return listTileWidget(
+                          categoryId: lastExpenses[index].categoryId,
+                          subtitle:
+                              "${lastExpenses[index].date.day}/${lastExpenses[index].date.month}/${lastExpenses[index].date.year}     (${lastExpenses[index].nameSurname})",
+                          price: lastExpenses[index].price,
+                          currencyType: widget.group.currencyType);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -130,6 +124,22 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        currentDate = picked;
+        if (picked.compareDate(DateTime.now())) {
+          filteredText = "Bugün";
+        } else {
+          filteredText = picked.getDateFormat("dd-MMM-yyyy");
+        }
       });
+  }
+
+  Future getLastExpensesByDate() async {
+    setState(() {
+      loading = true;
+    });
+    await ExpenseService.instance.getExpenses(context: context, groupID: widget.group.id);
+    setState(() {
+      loading = false;
+    });
   }
 }
