@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:paypara/controller/image_picker/image_picker_controller.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/constants/asset_constant.dart';
+import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/models/user/user.dart';
@@ -12,6 +13,7 @@ import 'package:paypara/services/group/group_service.dart';
 import 'package:paypara/services/user/user_service.dart';
 import 'package:paypara/ui/view_models/image_picker/image_picker_model.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
+import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/button.dart';
 import 'package:paypara/ui/widgets/textField.dart';
 
@@ -50,14 +52,12 @@ class _NewGroupViewState extends State<NewGroupView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: ColorManager.instance.white,
-        elevation: 0,
-      ),
+      appBar: appBar(text: 'Yeni Grup', isBack: true, context: context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           GroupService.instance.addGroup(
@@ -97,7 +97,8 @@ class _NewGroupViewState extends State<NewGroupView> {
                   bottom: 0,
                   child: GestureDetector(
                     onTap: () async {
-                      await ImagePickerController.getImageFromGallery(groupImage);
+                      await ImagePickerController.getImageFromGallery(
+                          groupImage);
                       setState(() {});
                     },
                     child: Container(
@@ -119,6 +120,10 @@ class _NewGroupViewState extends State<NewGroupView> {
               ],
             ),
             SizedBox(
+              height: Utility.dynamicHeight(0.01),
+            ),
+            Text("Grup Resmi"),
+            SizedBox(
               height: Utility.dynamicHeight(0.05),
             ),
             textField(textInputModel: groupName),
@@ -131,15 +136,16 @@ class _NewGroupViewState extends State<NewGroupView> {
                   width: Utility.dynamicWidth(0.05),
                 ),
                 Text(
-                  "Para Birimi",
+                  "Para Birimi: ",
                   style: TextStyleManager.instance.headline5BlackRegular,
                 ),
                 SizedBox(
-                  width: Utility.dynamicWidth(0.15),
+                  width: Utility.dynamicWidth(0.03),
                 ),
                 DropdownButton<String>(
                   value: currencyTpye,
-                  items: <String>['Dolar', 'Euro', 'Türk Lirası'].map((String value) {
+                  items: <String>['Dolar', 'Euro', 'Türk Lirası']
+                      .map((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -168,7 +174,8 @@ class _NewGroupViewState extends State<NewGroupView> {
             textField(
               textInputModel: userName,
               function: () async {
-                await UserService.instance.searchUser(context: context, userName: userName);
+                await UserService.instance
+                    .searchUser(context: context, userName: userName);
                 setState(() {});
               },
             ),
@@ -251,8 +258,12 @@ class _NewGroupViewState extends State<NewGroupView> {
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (!groupUser.result.any((element) => element.id == UserService.instance.user.result[index].id)) {
-                                    groupUser.result.add(UserService.instance.user.result[index]);
+                                  if (!groupUser.result.any((element) =>
+                                      element.id ==
+                                      UserService
+                                          .instance.user.result[index].id)) {
+                                    groupUser.result.add(UserService
+                                        .instance.user.result[index]);
                                   }
                                 });
                               },
@@ -262,7 +273,8 @@ class _NewGroupViewState extends State<NewGroupView> {
                                     CircleAvatar(
                                       radius: Utility.dynamicHeight(0.03),
                                       backgroundImage: MemoryImage(
-                                        base64Decode(UserService.instance.user.result[index].image),
+                                        base64Decode(UserService
+                                            .instance.user.result[index].image),
                                       ),
                                     ),
                                     SizedBox(
@@ -270,7 +282,8 @@ class _NewGroupViewState extends State<NewGroupView> {
                                     ),
                                     Text(
                                       "${UserService.instance.user.result[index].name}",
-                                      style: TextStyleManager.instance.headline5BlackRegular,
+                                      style: TextStyleManager
+                                          .instance.headline5BlackRegular,
                                     ),
                                   ],
                                 ),

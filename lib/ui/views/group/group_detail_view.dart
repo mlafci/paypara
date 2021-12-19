@@ -37,7 +37,10 @@ class _GroupDetailViewState extends State<GroupDetailView> {
         actions: [
           IconButton(
             icon: Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              NavigationService.navigateToPage(
+                  context, NavigationConstants.groupSettingView);
+            },
             color: Colors.red,
           )
         ],
@@ -79,7 +82,8 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
+                        padding:
+                            EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
                         child: Column(
                           children: [
                             Container(
@@ -87,7 +91,8 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                               height: Utility.dynamicHeight(0.08),
                               decoration: BoxDecoration(
                                 color: categories[index]["color"],
-                                borderRadius: BorderRadius.circular(Utility.borderRadius),
+                                borderRadius:
+                                    BorderRadius.circular(Utility.borderRadius),
                               ),
                               child: Icon(
                                 categories[index]["icon"],
@@ -100,7 +105,8 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                             ),
                             Text(
                               categories[index]["name"],
-                              style: TextStyleManager.instance.headline5BlackRegular,
+                              style: TextStyleManager
+                                  .instance.headline5BlackRegular,
                             )
                           ],
                         ),
@@ -115,17 +121,22 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
+                      padding:
+                          EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                       child: Text(
                         "Son Harcamalar",
                         style: TextStyleManager.instance.headline2BlackMedium,
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
+                      padding:
+                          EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
                       child: InkWell(
                         onTap: () {
-                          NavigationService.navigateToPage(context, NavigationConstants.recentExpensesView, widget.group);
+                          NavigationService.navigateToPage(
+                              context,
+                              NavigationConstants.recentExpensesView,
+                              widget.group);
                         },
                         child: Text(
                           "Tümünü Gör",
@@ -140,13 +151,16 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: ExpenseService.instance.lastExpenses.result.length,
+                    itemCount:
+                        ExpenseService.instance.lastExpenses.result.length,
                     itemBuilder: (context, index) {
                       return listTileWidget(
-                          categoryId: ExpenseService.instance.lastExpenses.result[index].categoryId,
+                          categoryId: ExpenseService
+                              .instance.lastExpenses.result[index].categoryId,
                           subtitle:
                               "${ExpenseService.instance.lastExpenses.result[index].date.day}/${ExpenseService.instance.lastExpenses.result[index].date.month}/${ExpenseService.instance.lastExpenses.result[index].date.year}     (${ExpenseService.instance.lastExpenses.result[index].nameSurname})",
-                          price: ExpenseService.instance.lastExpenses.result[index].price,
+                          price: ExpenseService
+                              .instance.lastExpenses.result[index].price,
                           currencyType: widget.group.currencyType);
                     },
                   ),
@@ -160,7 +174,8 @@ class _GroupDetailViewState extends State<GroupDetailView> {
     setState(() {
       loading = true;
     });
-    await ExpenseService.instance.getExpenses(context: context, groupID: widget.group.id);
+    await ExpenseService.instance
+        .getExpenses(context: context, groupID: widget.group.id);
     setState(() {
       loading = false;
     });

@@ -58,6 +58,20 @@ class _HomeViewState extends State<HomeView> {
           : Column(
               children: [
                 SizedBox(
+                  height: Utility.dynamicHeight(0.02),
+                ),
+                Container(
+                    width: Utility.dynamicWidth(0.75),
+                    height: Utility.dynamicHeight(0.20),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Utility.borderRadius),
+                        color: Colors.blue),
+                    child: Column(children: [
+                      Row(children: [Text("Anıl Savaşkurt")]),
+                      Row(children: [Text("3.500 ₺")])
+                    ])),
+                SizedBox(
                   height: Utility.dynamicHeight(0.05),
                 ),
                 Row(
