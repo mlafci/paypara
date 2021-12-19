@@ -19,12 +19,14 @@ class Result {
     this.userId,
     this.userName,
     this.claims,
+    this.image,
   });
 
   String token;
   String refreshToken;
   String userId;
   String userName;
+  String image;
   List<Claims> claims;
 
   factory Result.fromJson(dynamic json) {
@@ -35,6 +37,7 @@ class Result {
       refreshToken: json["refreshToken"],
       userId: json["userId"],
       userName: json["userName"],
+      image: json["image"],
       claims: claims,
     );
   }

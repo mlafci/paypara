@@ -12,8 +12,7 @@ class Expense extends IBaseModel {
   bool isSuccessful;
 
   fromJson(Map<String, dynamic> json) => Expense(
-        result:
-            List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
+        result: List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
         error: json["error"],
         isSuccessful: json["isSuccessful"],
       );
@@ -31,7 +30,6 @@ class Result {
     this.categoryId,
     this.price,
     this.date,
-    this.expenseImage,
     this.note,
   });
 
@@ -39,7 +37,6 @@ class Result {
   int categoryId;
   int price;
   DateTime date;
-  String expenseImage;
   String note;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
@@ -47,7 +44,6 @@ class Result {
         categoryId: json["categoryId"],
         price: json["price"],
         date: DateTime.parse(json["date"]),
-        expenseImage: json["expenseImage"],
         note: json["note"],
       );
 
@@ -56,7 +52,6 @@ class Result {
         "categoryId": categoryId,
         "price": price,
         "date": date.toIso8601String(),
-        "expenseImage": expenseImage,
         "note": note,
       };
 }

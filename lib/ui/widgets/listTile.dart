@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/constants/app_constant.dart';
 
-Widget listTileWidget(
-    {int categoryId, String subtitle, int price, int currencyType}) {
+Widget listTileWidget({int categoryId, String subtitle, int price, int currencyType}) {
   return Card(
     child: ListTile(
       onTap: () {},
@@ -29,39 +28,57 @@ Widget listTileWidget(
 
 List<Map<String, dynamic>> categories = [
   {
-    "id": 1,
-    "icon": Icons.local_pizza_outlined,
-    "name": "Yemek",
+    "id": 0,
+    "icon": CupertinoIcons.house,
+    "name": "Market",
     "color": ColorManager.instance.pink,
   },
   {
-    "id": 2,
-    "icon": Icons.local_drink,
-    "name": "İçecek",
+    "id": 1,
+    "icon": CupertinoIcons.gauge_badge_plus,
+    "name": "Akaryakıt",
     "color": ColorManager.instance.blue,
   },
   {
     "id": 2,
-    "icon": Icons.local_drink,
-    "name": "İçecek",
+    "icon": CupertinoIcons.doc_chart,
+    "name": "Fatura",
     "color": ColorManager.instance.blue,
   },
   {
-    "id": 2,
-    "icon": Icons.local_drink,
-    "name": "İçecek",
+    "id": 3,
+    "icon": CupertinoIcons.house_alt,
+    "name": "Kira",
     "color": ColorManager.instance.blue,
   },
   {
-    "id": 2,
-    "icon": Icons.local_drink,
-    "name": "İçecek",
+    "id": 4,
+    "icon": CupertinoIcons.music_note,
+    "name": "Eğlence",
     "color": ColorManager.instance.blue,
   },
   {
-    "id": 2,
-    "icon": Icons.local_drink,
-    "name": "İçecek",
+    "id": 5,
+    "icon": CupertinoIcons.device_phone_portrait,
+    "name": "Elektronik",
+    "color": ColorManager.instance.blue,
+  },
+  {
+    "id": 6,
+    "icon": Icons.loyalty,
+    "name": "Giyim",
+    "color": ColorManager.instance.blue,
+  },
+  {
+    "id": 7,
+    "icon": Icons.local_cafe_outlined,
+    "name": "Restorant&Cafe",
+    "color": ColorManager.instance.blue,
+  },
+  {
+    "id": 8,
+    "icon": CupertinoIcons.ellipsis_vertical,
+    "name": "Diğer",
     "color": ColorManager.instance.blue,
   },
 ];

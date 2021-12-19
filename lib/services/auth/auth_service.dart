@@ -17,7 +17,7 @@ class AuthService {
 
   AuthService._init();
 
-  Account user = new Account();
+  Account account = new Account();
 
   Future login({
     BuildContext context,
@@ -30,7 +30,7 @@ class AuthService {
     };
     Response response = await NetworkManager.instance.login(model);
     if (response.statusCode == 200) {
-      user = Account.fromJson(jsonDecode(response.body));
+      account = Account.fromJson(jsonDecode(response.body));
       NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -62,7 +62,7 @@ class AuthService {
     };
     Response response = await NetworkManager.instance.register(model);
     if (response.statusCode == 200) {
-      user = Account.fromJson(jsonDecode(response.body));
+      account = Account.fromJson(jsonDecode(response.body));
       NavigationService.navigateToPage(context, NavigationConstants.loginView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

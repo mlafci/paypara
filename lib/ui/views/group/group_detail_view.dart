@@ -7,7 +7,6 @@ import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/models/group/group.dart';
 import 'package:paypara/services/expense/expense_service.dart';
-import 'package:paypara/services/group/group_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
 
@@ -38,8 +37,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              NavigationService.navigateToPage(
-                  context, NavigationConstants.groupSettingView);
+              NavigationService.navigateToPage(context, NavigationConstants.groupSettingView);
             },
             color: Colors.red,
           )
@@ -47,7 +45,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("Harcama Ekleme Sayfasına Gidecek.");
+          NavigationService.navigateToPage(context, NavigationConstants.newExpenseView, widget.group);
         },
         child: Icon(
           CupertinoIcons.add,
@@ -82,8 +80,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                     itemCount: categories.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding:
-                            EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
+                        padding: EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
                         child: Column(
                           children: [
                             Container(
@@ -91,8 +88,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                               height: Utility.dynamicHeight(0.08),
                               decoration: BoxDecoration(
                                 color: categories[index]["color"],
-                                borderRadius:
-                                    BorderRadius.circular(Utility.borderRadius),
+                                borderRadius: BorderRadius.circular(Utility.borderRadius),
                               ),
                               child: Icon(
                                 categories[index]["icon"],
@@ -105,8 +101,10 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                             ),
                             Text(
                               categories[index]["name"],
-                              style: TextStyleManager
-                                  .instance.headline5BlackRegular,
+                              style: TextStyle(
+                                fontSize: Utility.dynamicHeight(0.015),
+                                fontFamily: TextStyleManager.instance.regular,
+                              ),
                             )
                           ],
                         ),
@@ -121,22 +119,17 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
+                      padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                       child: Text(
                         "Son Harcamalar",
                         style: TextStyleManager.instance.headline2BlackMedium,
                       ),
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
+                      padding: EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
                       child: InkWell(
                         onTap: () {
-                          NavigationService.navigateToPage(
-                              context,
-                              NavigationConstants.recentExpensesView,
-                              widget.group);
+                          NavigationService.navigateToPage(context, NavigationConstants.recentExpensesView, widget.group);
                         },
                         child: Text(
                           "Tümünü Gör",
@@ -151,16 +144,13 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount:
-                        ExpenseService.instance.lastExpenses.result.length,
+                    itemCount: ExpenseService.instance.expense.result.length,
                     itemBuilder: (context, index) {
                       return listTileWidget(
-                          categoryId: ExpenseService
-                              .instance.lastExpenses.result[index].categoryId,
+                          categoryId: ExpenseService.instance.expense.result[index].categoryId,
                           subtitle:
-                              "${ExpenseService.instance.lastExpenses.result[index].date.day}/${ExpenseService.instance.lastExpenses.result[index].date.month}/${ExpenseService.instance.lastExpenses.result[index].date.year}     (${ExpenseService.instance.lastExpenses.result[index].nameSurname})",
-                          price: ExpenseService
-                              .instance.lastExpenses.result[index].price,
+                              "${ExpenseService.instance.expense.result[index].date.day}/${ExpenseService.instance.expense.result[index].date.month}/${ExpenseService.instance.expense.result[index].date.year}     (${ExpenseService.instance.expense.result[index].nameSurname})",
+                          price: ExpenseService.instance.expense.result[index].price,
                           currencyType: widget.group.currencyType);
                     },
                   ),
@@ -174,8 +164,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
     setState(() {
       loading = true;
     });
-    await ExpenseService.instance
-        .getExpenses(context: context, groupID: widget.group.id);
+    await ExpenseService.instance.getExpenses(context: context, groupID: widget.group.id);
     setState(() {
       loading = false;
     });

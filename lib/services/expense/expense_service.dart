@@ -12,7 +12,27 @@ class ExpenseService {
 
   ExpenseService._init();
 
-  Expense lastExpenses = new Expense();
+  Expense expense = new Expense();
+
+  Future addExpense({
+    BuildContext context,
+    int groupID,
+    int categoryID,
+    int price,
+    String note,
+    DateTime date,
+  }) async {
+    dynamic model = {
+      "isActive": true,
+      "userId": "034cdf65-25d9-4218-9881-08011c81de01",
+      "groupId": groupID,
+      "categoryId": categoryID,
+      "price": price,
+      "note": note,
+      "date": "${date.toIso8601String()}",
+    };
+    await NetworkManager.instance.addExpense(data: model);
+  }
 
   Future getExpenses({
     BuildContext context,
@@ -22,14 +42,14 @@ class ExpenseService {
       "GroupId": "$groupID",
       "Date": "${DateTime.now()}",
     };
-    lastExpenses = await NetworkManager.instance.getLastExpense(data: model);
+    expense = await NetworkManager.instance.getExpenses(data: model);
   }
 
   List<Result> getExpensesByDate(DateTime dateTime) {
-    return ExpenseService.instance.lastExpenses.result.where((element) => element.date.compareDate(dateTime)).toList();
+    return ExpenseService.instance.expense.result.where((element) => element.date.compareDate(dateTime)).toList();
   }
 
   List<Result> getLastExpenses() {
-    return ExpenseService.instance.lastExpenses.result.where((element) => !element.date.compareDate(DateTime.now())).toList();
+    return ExpenseService.instance.expense.result.where((element) => !element.date.compareDate(DateTime.now())).toList();
   }
 }
