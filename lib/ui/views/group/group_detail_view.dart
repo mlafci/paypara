@@ -37,7 +37,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              NavigationService.navigateToPage(context, NavigationConstants.groupSettingView);
+              NavigationService.navigateToPage(context, NavigationConstants.groupSettingView,widget.group);
             },
             color: Colors.red,
           )

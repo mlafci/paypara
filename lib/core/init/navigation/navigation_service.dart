@@ -54,7 +54,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case NavigationConstants.groupDetailView:
       return MaterialPageRoute(builder: (_) => GroupDetailView(group: settings.arguments));
     case NavigationConstants.groupSettingView:
-      return MaterialPageRoute(builder: (_) => GroupSettingView());
+      return MaterialPageRoute(builder: (_) => GroupSettingView(group: settings.arguments));
     case NavigationConstants.newExpenseView:
       return MaterialPageRoute(builder: (_) => NewExpenseView(group: settings.arguments));
     default:

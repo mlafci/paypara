@@ -7,15 +7,19 @@ import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/constants/asset_constant.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
+import 'package:paypara/models/group/group.dart';
 import 'package:paypara/models/user/user.dart';
 import 'package:paypara/services/group/group_service.dart';
 import 'package:paypara/services/user/user_service.dart';
 import 'package:paypara/ui/view_models/image_picker/image_picker_model.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
+import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/button.dart';
 import 'package:paypara/ui/widgets/textField.dart';
 
 class GroupSettingView extends StatefulWidget {
+  final GroupDetail group;
+  GroupSettingView({this.group});
   @override
   _GroupSettingViewState createState() => _GroupSettingViewState();
 }
@@ -29,6 +33,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
 
   @override
   void initState() {   
+    groupImage.image = widget.group.groupImage;
     groupName = TextInputModel(
       hintText: "Grup Adı",      
       icon: Icon(
@@ -36,7 +41,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
         color: ColorManager.instance.pink,
       ),
     );
-    groupName.controller.text = "TemproaryData" ;
+    groupName.controller.text = widget.group.name ;
     userName = TextInputModel(
       hintText: "Kullanıcı Ara",
       icon: Icon(
@@ -57,10 +62,10 @@ class _GroupSettingViewState extends State<GroupSettingView> {
         MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       resizeToAvoidBottomInset : false,
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: ColorManager.instance.white,
-        elevation: 0,
+      appBar: appBar(
+        context: context,
+        text: "Grup Ayarları",
+        isBack: true,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -124,6 +129,10 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                 ),
               ],
             ),
+             SizedBox(
+              height: Utility.dynamicHeight(0.01),
+            ),
+            Text("Grup Resmi"),
             SizedBox(
               height: Utility.dynamicHeight(0.05),
             ),
@@ -218,13 +227,6 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                 "${groupUser.result[index].name.toUpperCase()}  ${groupUser.result[index].surname.toUpperCase()} kullanıcısını silmek istediğinize emin misiniz ?"),
                                             actions: <CupertinoDialogAction>[
                                               CupertinoDialogAction(
-                                                child: const Text('No'),
-                                                onPressed: () {
-                                                  FocusScope.of(context).unfocus();
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              CupertinoDialogAction(
                                                 child: const Text('Yes'),
                                                 isDestructiveAction: true,
                                                 onPressed: () {
@@ -234,7 +236,15 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                   });
                                                   Navigator.pop(context);
                                                 },
-                                              )
+                                              ),
+                                              CupertinoDialogAction(
+                                                child: const Text('No'),
+                                                onPressed: () {
+                                                  FocusScope.of(context).unfocus();
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              
                                             ],
                                           ),  
                                           ) 
@@ -301,13 +311,6 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                 "${UserService.instance.user.result[index].name.toUpperCase()}  ${UserService.instance.user.result[index].surname.toUpperCase()} kullanıcısını eklemek istediğinize emin misiniz ?"),
                                             actions: <CupertinoDialogAction>[
                                               CupertinoDialogAction(
-                                                child: const Text('No'),
-                                                onPressed: () {
-                                                  FocusScope.of(context).unfocus();
-                                                  Navigator.pop(context);                                                  
-                                                },
-                                              ),
-                                              CupertinoDialogAction(
                                                 child: const Text('Yes'),
                                                 isDestructiveAction: true,
                                                 onPressed: () {
@@ -321,7 +324,14 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                                   FocusScope.of(context).unfocus();
                                                   Navigator.pop(context);
                                                 },
-                                              )
+                                              ),
+                                              CupertinoDialogAction(
+                                                child: const Text('No'),
+                                                onPressed: () {
+                                                  FocusScope.of(context).unfocus();
+                                                  Navigator.pop(context);                                                  
+                                                },
+                                              ),                                              
                                             ],
                                           ),  
                                           )                                                                             
@@ -355,7 +365,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                       ),
                     ),
                   )
-                : Container(height: Utility.dynamicHeight(0.305)),  
+                : Container(height: Utility.dynamicHeight(0.205)),  
               Container(
               margin: EdgeInsets.only(bottom:Utility.dynamicHeight(0.02)),
               width: Utility.dynamicWidth(0.5),
