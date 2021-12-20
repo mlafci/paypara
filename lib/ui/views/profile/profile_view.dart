@@ -87,8 +87,8 @@ class _ProfileViewState extends State<ProfileView> {
           SizedBox(
             height: Utility.dynamicHeight(0.02),
           ),
-          Text("anıl"
-              //"${userProfile.result[index].name.toUpperCase()} ${userProfile.result[index].surname.toUpperCase()}",
+          Text("deneme"
+              //"${userProfile.result.name.toUpperCase()} ${userProfile.result.surname.toUpperCase()}",
               )
         ]),
       ),
