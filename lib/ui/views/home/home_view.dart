@@ -27,8 +27,10 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width =
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       appBar: appBar(
         text: 'PayPara',
@@ -38,13 +40,17 @@ class _HomeViewState extends State<HomeView> {
             icon: Icon(Icons.notifications),
             iconSize: Utility.dynamicHeight(0.04),
             color: ColorManager.instance.pink,
-            onPressed: () => {},
+            onPressed: () => {
+              NavigationService.navigateToPage(
+                  context, NavigationConstants.profileView)
+            },
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          NavigationService.navigateToPage(context, NavigationConstants.newGroupView);
+          NavigationService.navigateToPage(
+              context, NavigationConstants.newGroupView);
         },
         child: Icon(
           CupertinoIcons.add,
@@ -60,12 +66,15 @@ class _HomeViewState extends State<HomeView> {
                 Container(
                   width: Utility.dynamicWidth(0.9),
                   height: Utility.dynamicHeight(0.08),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Utility.borderRadius), color: Colors.blue),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Utility.borderRadius),
+                      color: Colors.blue),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
+                        padding:
+                            EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                         child: Text(
                           "Anıl Savaşkurt",
                           style: TextStyle(
@@ -75,7 +84,8 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
+                        padding:
+                            EdgeInsets.only(right: Utility.dynamicWidth(0.05)),
                         child: Text(
                           "3.500 ₺",
                           style: TextStyle(
@@ -106,26 +116,42 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: GroupService.instance.myGroup.result.groupDetails.length,
+                    itemCount: GroupService
+                        .instance.myGroup.result.groupDetails.length,
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
                           onTap: () {
-                            NavigationService.navigateToPage(context, NavigationConstants.groupDetailView, GroupService.instance.myGroup.result.groupDetails[index]);
+                            NavigationService.navigateToPage(
+                                context,
+                                NavigationConstants.groupDetailView,
+                                GroupService.instance.myGroup.result
+                                    .groupDetails[index]);
                           },
                           leading: CircleAvatar(
-                            backgroundImage: MemoryImage(base64Decode(GroupService.instance.myGroup.result.groupDetails[index].groupImage)),
+                            backgroundImage: MemoryImage(base64Decode(
+                                GroupService.instance.myGroup.result
+                                    .groupDetails[index].groupImage)),
                           ),
                           title: Text(
-                            GroupService.instance.myGroup.result.groupDetails[index].name,
+                            GroupService.instance.myGroup.result
+                                .groupDetails[index].name,
                           ),
                           trailing: Text(
                             '${GroupService.instance.myGroup.result.groupDetails[index].priceStatus} ${ApplicationConstants.currencyList[GroupService.instance.myGroup.result.groupDetails[index].currencyType]}',
                             style: TextStyle(
                                 fontFamily: TextStyleManager.instance.medium,
-                                color: (GroupService.instance.myGroup.result.groupDetails[index].priceStatus > 0)
+                                color: (GroupService.instance.myGroup.result
+                                            .groupDetails[index].priceStatus >
+                                        0)
                                     ? Colors.green
-                                    : (GroupService.instance.myGroup.result.groupDetails[index].priceStatus == 0)
+                                    : (GroupService
+                                                .instance
+                                                .myGroup
+                                                .result
+                                                .groupDetails[index]
+                                                .priceStatus ==
+                                            0)
                                         ? Colors.blue
                                         : Colors.red),
                           ),
