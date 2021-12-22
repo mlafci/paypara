@@ -8,6 +8,7 @@ import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/services/auth/auth_service.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
+import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/button.dart';
 import 'package:paypara/ui/widgets/textField.dart';
 
@@ -17,9 +18,16 @@ class ResetPasswordView extends StatefulWidget {
 }
 
 class ResetPasswordViewState extends State<ResetPasswordView> {
-  TextInputModel newPassword1, newPassword2;
+  TextInputModel currentPassword, newPassword1, newPassword2;
   @override
   void initState() {
+    currentPassword = TextInputModel(
+      hintText: "Eski şifreniz",
+      icon: Icon(
+        CupertinoIcons.lock,
+        color: ColorManager.instance.pink,
+      ),
+    );
     newPassword1 = TextInputModel(
       hintText: "Yeni şifreniz",
       icon: Icon(
@@ -44,24 +52,17 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
     Utility.width =
         MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: ColorManager.instance.white,
-        elevation: 0,
+      appBar: appBar(
+        text: 'ŞİFRE SIFIRLAMA',
+        isBack: true,
+        context: context,
       ),
       body: Container(
         width: Utility.width,
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            Text(
-              "Şifre Sıfırlama",
-              style: TextStyleManager.instance.headline1BlackBold,
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.15),
+              height: Utility.dynamicHeight(0.10),
             ),
             Text(
               "Yeni şifreniz eski şifrenizden farklı olmalıdır",
@@ -69,6 +70,10 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
             ),
             SizedBox(
               height: Utility.dynamicHeight(0.05),
+            ),
+            textField(textInputModel: currentPassword),
+            SizedBox(
+              height: Utility.dynamicHeight(0.03),
             ),
             textField(textInputModel: newPassword1),
             SizedBox(

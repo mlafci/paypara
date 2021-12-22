@@ -46,6 +46,15 @@ class NetworkManager extends BaseService {
     );
   }
 
+  //Değiştirilecek
+  Future deleteGroupFromUser({dynamic data}) async {
+    return await post(
+      baseUrl: BaseURL.URL,
+      path: "/groups/DeleteUserInGroupByUserId",
+      data: data,
+    );
+  }
+
   Future<User> getSearchUser({dynamic data}) async {
     return await get<User>(
       baseUrl: BaseURL.URL,
@@ -73,7 +82,7 @@ class NetworkManager extends BaseService {
   }
 
   Future<Expense> profileStatus({dynamic data}) async {
-    return await post<User>(
+    return await get<User>(
       baseUrl: BaseURL.URL,
       path: '/user/UserProfileByUserId',
       model: User(),

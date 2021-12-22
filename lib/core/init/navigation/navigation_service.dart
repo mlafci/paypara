@@ -43,7 +43,8 @@ class NavigationService {
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case NavigationConstants.homeView:
-      return MaterialPageRoute(builder: (_) => HomeView());
+      return MaterialPageRoute(
+          builder: (_) => HomeView(account: settings.arguments));
     case NavigationConstants.loginView:
       return MaterialPageRoute(builder: (_) => LoginView());
     case NavigationConstants.profileView:

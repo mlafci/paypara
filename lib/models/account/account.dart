@@ -13,43 +13,28 @@ class Account {
 }
 
 class Result {
-  Result({
-    this.token,
-    this.refreshToken,
-    this.userId,
-    this.userName,
-    this.claims,
-    this.image,
-  });
+  Result(
+      {this.token,
+      this.refreshToken,
+      this.userId,
+      this.name,
+      this.surname,
+      this.image});
 
   String token;
   String refreshToken;
   String userId;
-  String userName;
+  String name;
+  String surname;
   String image;
-  List<Claims> claims;
 
   factory Result.fromJson(dynamic json) {
-    var list = json['claims'] as List;
-    List<Claims> claims = list.map((i) => Claims.fromJson(i)).toList();
     return Result(
-      token: json["token"],
-      refreshToken: json["refreshToken"],
-      userId: json["userId"],
-      userName: json["userName"],
-      image: json["image"],
-      claims: claims,
-    );
-  }
-}
-
-class Claims {
-  Claims({
-    this.name,
-  });
-  String name;
-
-  factory Claims.fromJson(Map<String, dynamic> json) => Claims(
+        token: json["token"],
+        refreshToken: json["refreshToken"],
+        userId: json["userId"],
         name: json["name"],
-      );
+        surname: json["surname"],
+        image: json["image"]);
+  }
 }

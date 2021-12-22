@@ -24,14 +24,21 @@ class AuthService {
     TextInputModel email,
     TextInputModel password,
   }) async {
-    dynamic model = {
+    /*dynamic model = {
       "email": email.controller.text,
       "password": password.controller.text,
+    };*/
+    dynamic model = {
+      "email": "efefehmitayci@gmail.com",
+      "password": "Pp220799",
     };
     Response response = await NetworkManager.instance.login(model);
     if (response.statusCode == 200) {
       account = Account.fromJson(jsonDecode(response.body));
-      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
+      print("Account");
+      print(account.result.surname);
+      NavigationService.navigateToPageClear(
+          context, NavigationConstants.homeView, account);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

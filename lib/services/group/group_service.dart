@@ -19,6 +19,7 @@ class GroupService {
   GroupService._init();
 
   Group myGroup = new Group();
+
   Future addGroup({
     BuildContext context,
     TextInputModel groupName,
@@ -74,5 +75,26 @@ class GroupService {
         ),
       );
     }*/
+  }
+
+  Future deleteGroupFromUser({BuildContext context, int groupId}) async {
+    dynamic model = {
+      "groupId": groupId,
+      "userId": "034cdf65-25d9-4218-9881-08011c81de01",
+    };
+    var result = await NetworkManager.instance.deleteGroupFromUser(data: model);
+    if (result.isSuccessful) {
+      NavigationService.navigateToPageClear(
+          context, NavigationConstants.homeView);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Bir hata oluştu!",
+            style: TextStyleManager.instance.headline5WhiteMedium,
+          ),
+        ),
+      );
+    }
   }
 }

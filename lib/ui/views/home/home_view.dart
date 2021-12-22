@@ -8,10 +8,14 @@ import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
+import 'package:paypara/models/account/account.dart';
 import 'package:paypara/services/group/group_service.dart';
+import 'package:paypara/services/user/user_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 
 class HomeView extends StatefulWidget {
+  final Account account;
+  HomeView({this.account});
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -37,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
         isBack: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: Icon(Icons.settings),
             iconSize: Utility.dynamicHeight(0.04),
             color: ColorManager.instance.pink,
             onPressed: () => {
@@ -76,7 +80,9 @@ class _HomeViewState extends State<HomeView> {
                         padding:
                             EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                         child: Text(
-                          "Anıl Savaşkurt",
+                          widget.account.result.name +
+                              " " +
+                              widget.account.result.surname,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: Utility.dynamicHeight(0.02),
