@@ -6,7 +6,10 @@ import 'package:paypara/controller/image_picker/image_picker_controller.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/constants/asset_constant.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
+import 'package:paypara/models/account/account.dart';
 import 'package:paypara/models/user/user.dart';
+import 'package:paypara/services/auth/auth_service.dart';
+import 'package:paypara/services/user/user_service.dart';
 import 'package:paypara/ui/view_models/image_picker/image_picker_model.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 
@@ -17,8 +20,8 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   ImagePickerModel userImage = ImagePickerModel();
+  User profileUser = new User();
   int type = 0;
-  User userProfile = new User();
   @override
   Widget build(BuildContext context) {
     Utility.height =
@@ -30,6 +33,7 @@ class _ProfileViewState extends State<ProfileView> {
       appBar: appBar(
         text: 'PROFIL',
         isBack: true,
+        context: context,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -85,11 +89,17 @@ class _ProfileViewState extends State<ProfileView> {
             ],
           ),
           SizedBox(
-            height: Utility.dynamicHeight(0.02),
+            height: Utility.dynamicHeight(0.05),
           ),
-          Text("deneme"
-              //"${userProfile.result.name.toUpperCase()} ${userProfile.result.surname.toUpperCase()}",
-              )
+          Text("Kullanıcı:"
+              //${}"
+              ),
+          SizedBox(
+            height: Utility.dynamicHeight(0.03),
+          ),
+          Text("Net Durum, Alacak, Verecek"
+              //"${UserService.instance.profileStatus()}"
+              ),
         ]),
       ),
     );

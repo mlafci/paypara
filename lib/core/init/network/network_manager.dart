@@ -71,4 +71,13 @@ class NetworkManager extends BaseService {
       data: data,
     );
   }
+
+  Future<Expense> profileStatus({dynamic data}) async {
+    return await post<Expense>(
+      baseUrl: BaseURL.URL,
+      path: '/user/UserProfileByUserId',
+      model: Expense(),
+      data: data,
+    );
+  }
 }

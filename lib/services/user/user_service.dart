@@ -14,10 +14,25 @@ class UserService {
 
   User user = new User();
 
+  Future profileStatus({
+    BuildContext context,
+    int netStatus,
+    int payable,
+    int receivable,
+  }) async {
+    dynamic model = {
+      "netStatus": netStatus,
+      "payable": payable,
+      "receivable": receivable,
+    };
+    await NetworkManager.instance.profileStatus(data: model);
+  }
+
   Future searchUser({
     BuildContext context,
     TextInputModel userName,
   }) async {
-    user = await NetworkManager.instance.getSearchUser(data: userName.controller.text);
+    user = await NetworkManager.instance
+        .getSearchUser(data: userName.controller.text);
   }
 }
