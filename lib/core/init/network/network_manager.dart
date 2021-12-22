@@ -55,10 +55,10 @@ class NetworkManager extends BaseService {
   }
 
   Future<Expense> getExpenses({dynamic data}) async {
-    return await get<Expense>(
+    return await get<User>(
       baseUrl: BaseURL.URL,
       path: '/groups/GetExpensesByGroupId',
-      model: Expense(),
+      model: User(),
       data: data,
     );
   }
