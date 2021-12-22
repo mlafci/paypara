@@ -8,6 +8,7 @@ import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/models/group/group.dart';
 import 'package:paypara/services/expense/expense_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
+import 'package:paypara/ui/widgets/barChart.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
 
 class GroupDetailView extends StatefulWidget {
@@ -37,7 +38,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
           IconButton(
             icon: Icon(Icons.settings),
             onPressed: () {
-              NavigationService.navigateToPage(context, NavigationConstants.groupSettingView,widget.group);
+              NavigationService.navigateToPage(context, NavigationConstants.groupSettingView, widget.group);
             },
             color: Colors.red,
           )
@@ -56,7 +57,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
           : Column(
               children: <Widget>[
                 SizedBox(
-                  height: Utility.dynamicHeight(0.1),
+                  height: Utility.dynamicHeight(0.03),
                 ),
                 Row(
                   children: [
@@ -64,8 +65,23 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                       width: Utility.dynamicWidth(0.05),
                     ),
                     Text(
+                      "Harcama İstatistikleri",
+                      style: TextStyleManager.instance.headline4BlackMedium,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: Utility.dynamicHeight(0.01),
+                ),
+                BarChartGroup(),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: Utility.dynamicWidth(0.05),
+                    ),
+                    Text(
                       "Kategoriler",
-                      style: TextStyleManager.instance.headline2BlackMedium,
+                      style: TextStyleManager.instance.headline4BlackMedium,
                     ),
                   ],
                 ),
@@ -122,7 +138,7 @@ class _GroupDetailViewState extends State<GroupDetailView> {
                       padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                       child: Text(
                         "Son Harcamalar",
-                        style: TextStyleManager.instance.headline2BlackMedium,
+                        style: TextStyleManager.instance.headline4BlackMedium,
                       ),
                     ),
                     Padding(
