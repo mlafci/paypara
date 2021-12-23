@@ -10,7 +10,7 @@ class ApplicationConstants {
     }
   }
 
-  static List<String> currencyList = ["$", "€", "₺"];
+  static List<String> currencyList = ["\$", "€", "₺"];
 
   static const RESPONSE_TIMEOUT = 25;
   static const socialWebSite = "";
