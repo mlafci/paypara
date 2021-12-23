@@ -7,6 +7,7 @@ Widget button({
   Function function,
   String text,
   bool isPrimary,
+  @required bool loading,
 }) {
   return TextButton(
     onPressed: function,
@@ -21,17 +22,13 @@ Widget button({
         RoundedRectangleBorder(
           side: BorderSide(
             width: Utility.dynamicWidth(0.005),
-            color: (function != null)
-                ? ColorManager.instance.blue
-                : ColorManager.instance.grey,
+            color: (function != null) ? ColorManager.instance.blue : ColorManager.instance.grey,
           ),
           borderRadius: BorderRadius.circular(Utility.borderRadius),
         ),
       ),
       overlayColor: MaterialStateProperty.all(
-        (isPrimary)
-            ? ColorManager.instance.white.withOpacity(0.2)
-            : ColorManager.instance.blue.withOpacity(0.2),
+        (isPrimary) ? ColorManager.instance.white.withOpacity(0.2) : ColorManager.instance.blue.withOpacity(0.2),
       ),
       backgroundColor: MaterialStateProperty.all(
         (function != null && isPrimary)
@@ -41,11 +38,13 @@ Widget button({
                 : ColorManager.instance.grey,
       ),
     ),
-    child: Text(
-      text,
-      style: (isPrimary || function == null)
-          ? TextStyleManager.instance.headline4WhiteMedium
-          : TextStyleManager.instance.headline4WhiteMedium,
-    ),
+    child: (loading)
+        ? CircularProgressIndicator(
+            color: ColorManager.instance.white,
+          )
+        : Text(
+            text,
+            style: (isPrimary || function == null) ? TextStyleManager.instance.headline4WhiteMedium : TextStyleManager.instance.headline4WhiteMedium,
+          ),
   );
 }

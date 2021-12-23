@@ -6,7 +6,6 @@ import 'package:paypara/models/group/group.dart';
 import 'package:paypara/services/expense/expense_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
-import 'package:intl/intl.dart';
 
 class RecentExpensesView extends StatefulWidget {
   final GroupDetail group;
@@ -101,8 +100,7 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                     itemBuilder: (context, index) {
                       return listTileWidget(
                           categoryId: lastExpenses[index].categoryId,
-                          subtitle:
-                              "${lastExpenses[index].date.day}/${lastExpenses[index].date.month}/${lastExpenses[index].date.year}     (${lastExpenses[index].nameSurname})",
+                          subtitle: "${lastExpenses[index].date.day}/${lastExpenses[index].date.month}/${lastExpenses[index].date.year}     (${lastExpenses[index].nameSurname})",
                           price: lastExpenses[index].price,
                           currencyType: widget.group.currencyType);
                     },

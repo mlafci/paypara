@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
+import 'package:paypara/core/constants/navigation_constant.dart';
+import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/services/auth/auth_service.dart';
@@ -15,6 +18,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   TextInputModel email, password;
+  bool loading = false;
   @override
   void initState() {
     email = TextInputModel(
@@ -37,10 +41,8 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -49,46 +51,68 @@ class _LoginViewState extends State<LoginView> {
       ),
       body: Container(
         width: Utility.width,
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            Text(
-              "PayPara",
-              style: TextStyleManager.instance.headline1BlackBold,
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            Image.asset("assets/readme/paypara-logo.png",
-                height: Utility.dynamicHeight(0.25),
-                width: Utility.dynamicWidth(90)),
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            textField(textInputModel: email),
-            SizedBox(
-              height: Utility.dynamicHeight(0.02),
-            ),
-            textField(textInputModel: password),
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            button(
-              text: "Giriş Yap",
-              isPrimary: true,
-              function: () {
-                AuthService.instance.login(
-                  context: context,
-                  email: email,
-                  password: password,
-                );
-              },
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              Text(
+                "PayPara",
+                style: TextStyleManager.instance.headline1BlackBold,
+              ),
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              Image.asset("assets/readme/paypara-logo.png", height: Utility.dynamicHeight(0.25), width: Utility.dynamicWidth(90)),
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              textField(textInputModel: email),
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              textField(textInputModel: password),
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              button(text: "Giriş Yap", isPrimary: true, function: login, loading: loading),
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: 'Üye Değil Misiniz? ',
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextSpan(
+                      text: 'Üye Ol',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          NavigationService.navigateToPage(context, NavigationConstants.registerView);
+                        }),
+                ]),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future login() async {
+    setState(() {
+      loading = true;
+    });
+    await AuthService.instance.login(context: context, email: email, password: password);
+    setState(() {
+      loading = false;
+    });
   }
 }

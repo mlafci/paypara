@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/controller/image_picker/image_picker_controller.dart';
@@ -9,7 +8,6 @@ import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
 import 'package:paypara/models/group/group.dart';
 import 'package:paypara/models/user/user.dart';
-import 'package:paypara/services/group/group_service.dart';
 import 'package:paypara/services/user/user_service.dart';
 import 'package:paypara/ui/view_models/image_picker/image_picker_model.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
@@ -30,18 +28,19 @@ class _GroupSettingViewState extends State<GroupSettingView> {
   String currencyTpye = "Dolar";
   int type = 0;
   User groupUser = new User();
+  bool loading = false;
 
   @override
-  void initState() {   
+  void initState() {
     groupImage.image = widget.group.groupImage;
     groupName = TextInputModel(
-      hintText: "Grup Adı",      
+      hintText: "Grup Adı",
       icon: Icon(
         CupertinoIcons.mail,
         color: ColorManager.instance.pink,
       ),
     );
-    groupName.controller.text = widget.group.name ;
+    groupName.controller.text = widget.group.name;
     userName = TextInputModel(
       hintText: "Kullanıcı Ara",
       icon: Icon(
@@ -56,12 +55,10 @@ class _GroupSettingViewState extends State<GroupSettingView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       appBar: appBar(
         context: context,
         text: "Grup Ayarları",
@@ -107,8 +104,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                   bottom: 0,
                   child: GestureDetector(
                     onTap: () async {
-                      await ImagePickerController.getImageFromGallery(
-                          groupImage);
+                      await ImagePickerController.getImageFromGallery(groupImage);
                       setState(() {});
                     },
                     child: Container(
@@ -129,7 +125,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                 ),
               ],
             ),
-             SizedBox(
+            SizedBox(
               height: Utility.dynamicHeight(0.01),
             ),
             Text("Grup Resmi"),
@@ -183,8 +179,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
             textField(
               textInputModel: userName,
               function: () async {
-                await UserService.instance
-                    .searchUser(context: context, userName: userName);
+                await UserService.instance.searchUser(context: context, userName: userName);
                 setState(() {});
               },
             ),
@@ -217,38 +212,35 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                               bottom: 0,
                               child: GestureDetector(
                                 onTap: () async {
-                                  showCupertinoModalPopup<void>(                                  
+                                  showCupertinoModalPopup<void>(
                                       context: context,
                                       builder: (BuildContext context) => Container(
-                                        child:
-                                        CupertinoAlertDialog(
-                                            title: const Text('Alert'),                                            
-                                            content: Text(
-                                                "${groupUser.result[index].name.toUpperCase()}  ${groupUser.result[index].surname.toUpperCase()} kullanıcısını silmek istediğinize emin misiniz ?"),
-                                            actions: <CupertinoDialogAction>[
-                                              CupertinoDialogAction(
-                                                child: const Text('Yes'),
-                                                isDestructiveAction: true,
-                                                onPressed: () {
-                                                  //FocusScope.of(context).unfocus();
-                                                  setState(() {
-                                                     groupUser.result.removeAt(index);
-                                                  });
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              CupertinoDialogAction(
-                                                child: const Text('No'),
-                                                onPressed: () {
-                                                  FocusScope.of(context).unfocus();
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              
-                                            ],
-                                          ),  
-                                          ) 
-                                        );                                                                  
+                                            child: CupertinoAlertDialog(
+                                              title: const Text('Alert'),
+                                              content: Text(
+                                                  "${groupUser.result[index].name.toUpperCase()}  ${groupUser.result[index].surname.toUpperCase()} kullanıcısını silmek istediğinize emin misiniz ?"),
+                                              actions: <CupertinoDialogAction>[
+                                                CupertinoDialogAction(
+                                                  child: const Text('Yes'),
+                                                  isDestructiveAction: true,
+                                                  onPressed: () {
+                                                    //FocusScope.of(context).unfocus();
+                                                    setState(() {
+                                                      groupUser.result.removeAt(index);
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                CupertinoDialogAction(
+                                                  child: const Text('No'),
+                                                  onPressed: () {
+                                                    FocusScope.of(context).unfocus();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ));
                                   setState(() {});
                                 },
                                 child: Container(
@@ -297,45 +289,36 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                             ),
                             child: GestureDetector(
                               onTap: () {
-                                if (!groupUser.result.any((element) =>
-                                    element.id ==
-                                    UserService
-                                        .instance.user.result[index].id)) {                                  
-                                  showCupertinoModalPopup<void>(                                  
+                                if (!groupUser.result.any((element) => element.id == UserService.instance.user.result[index].id)) {
+                                  showCupertinoModalPopup<void>(
                                       context: context,
                                       builder: (BuildContext context) => Container(
-                                        child:
-                                        CupertinoAlertDialog(
-                                            title: const Text('Alert'),                                            
-                                            content: Text(
-                                                "${UserService.instance.user.result[index].name.toUpperCase()}  ${UserService.instance.user.result[index].surname.toUpperCase()} kullanıcısını eklemek istediğinize emin misiniz ?"),
-                                            actions: <CupertinoDialogAction>[
-                                              CupertinoDialogAction(
-                                                child: const Text('Yes'),
-                                                isDestructiveAction: true,
-                                                onPressed: () {
-                                                  setState(() {
-                                                    groupUser.result.add(
-                                                        UserService
-                                                            .instance
-                                                            .user
-                                                            .result[index]);
-                                                  });
-                                                  FocusScope.of(context).unfocus();
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              CupertinoDialogAction(
-                                                child: const Text('No'),
-                                                onPressed: () {
-                                                  FocusScope.of(context).unfocus();
-                                                  Navigator.pop(context);                                                  
-                                                },
-                                              ),                                              
-                                            ],
-                                          ),  
-                                          )                                                                             
-                                        );                                 
+                                            child: CupertinoAlertDialog(
+                                              title: const Text('Alert'),
+                                              content: Text(
+                                                  "${UserService.instance.user.result[index].name.toUpperCase()}  ${UserService.instance.user.result[index].surname.toUpperCase()} kullanıcısını eklemek istediğinize emin misiniz ?"),
+                                              actions: <CupertinoDialogAction>[
+                                                CupertinoDialogAction(
+                                                  child: const Text('Yes'),
+                                                  isDestructiveAction: true,
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      groupUser.result.add(UserService.instance.user.result[index]);
+                                                    });
+                                                    FocusScope.of(context).unfocus();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                CupertinoDialogAction(
+                                                  child: const Text('No'),
+                                                  onPressed: () {
+                                                    FocusScope.of(context).unfocus();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ));
                                 }
                               },
                               child: Container(
@@ -344,8 +327,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                     CircleAvatar(
                                       radius: Utility.dynamicHeight(0.03),
                                       backgroundImage: MemoryImage(
-                                        base64Decode(UserService
-                                            .instance.user.result[index].image),
+                                        base64Decode(UserService.instance.user.result[index].image),
                                       ),
                                     ),
                                     SizedBox(
@@ -353,8 +335,7 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                                     ),
                                     Text(
                                       "${UserService.instance.user.result[index].name}",
-                                      style: TextStyleManager
-                                          .instance.headline5BlackRegular,
+                                      style: TextStyleManager.instance.headline5BlackRegular,
                                     ),
                                   ],
                                 ),
@@ -365,19 +346,20 @@ class _GroupSettingViewState extends State<GroupSettingView> {
                       ),
                     ),
                   )
-                : Container(height: Utility.dynamicHeight(0.205)),  
-              Container(
-              margin: EdgeInsets.only(bottom:Utility.dynamicHeight(0.02)),
+                : Container(height: Utility.dynamicHeight(0.205)),
+            Container(
+              margin: EdgeInsets.only(bottom: Utility.dynamicHeight(0.02)),
               width: Utility.dynamicWidth(0.5),
               child: button(
                 text: "Gruptan Çık",
-                isPrimary: true,                
+                isPrimary: true,
                 function: () {
                   print("Gruptan Çık Servisi");
                 },
+                loading: loading,
               ),
-            )  
-          ],         
+            )
+          ],
         ),
       ),
     );

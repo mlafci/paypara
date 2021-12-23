@@ -8,6 +8,7 @@ import 'package:paypara/models/group/group.dart';
 import 'package:paypara/services/expense/expense_service.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
+import 'package:paypara/ui/widgets/button.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
 import 'package:paypara/ui/widgets/textField.dart';
 
@@ -22,6 +23,7 @@ class _NewExpenseViewState extends State<NewExpenseView> {
   TextInputModel price, note;
   int categoryID = 0;
   DateTime date = DateTime.now();
+  bool loading = false;
 
   @override
   void initState() {
@@ -49,21 +51,6 @@ class _NewExpenseViewState extends State<NewExpenseView> {
     Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       appBar: appBar(text: 'Yeni Harcama', isBack: true, context: context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ExpenseService.instance.addExpense(
-            context: context,
-            groupID: widget.group.id,
-            categoryID: categoryID,
-            price: int.parse(price.controller.text),
-            note: note.controller.text,
-            date: date,
-          );
-        },
-        child: Icon(
-          CupertinoIcons.checkmark_alt,
-        ),
-      ),
       body: Container(
         width: Utility.width,
         child: Column(
@@ -168,6 +155,15 @@ class _NewExpenseViewState extends State<NewExpenseView> {
                 )
               ],
             ),
+            SizedBox(
+              height: Utility.dynamicHeight(0.1),
+            ),
+            button(
+              loading: loading,
+              function: addExpense,
+              text: "Harcama Ekle",
+              isPrimary: true,
+            ),
           ],
         ),
       ),
@@ -185,5 +181,22 @@ class _NewExpenseViewState extends State<NewExpenseView> {
       setState(() {
         date = picked;
       });
+  }
+
+  Future addExpense() async {
+    setState(() {
+      loading = true;
+    });
+    await ExpenseService.instance.addExpense(
+      context: context,
+      groupID: widget.group.id,
+      categoryID: categoryID,
+      price: int.parse(price.controller.text),
+      note: note.controller.text,
+      date: date,
+    );
+    setState(() {
+      loading = false;
+    });
   }
 }

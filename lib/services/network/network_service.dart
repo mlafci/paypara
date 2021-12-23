@@ -54,7 +54,7 @@ class NetworkService {
     String path,
     dynamic data,
   }) async {
-    Uri url = Uri.https(NetworkConstants.baseUrl, path, data);
+    Uri url = Uri.https(NetworkConstants.baseUrl, path);
     Response response = await put(
       url,
       body: jsonEncode(data),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/network/network_manager.dart';
 import 'package:paypara/core/utils/date_util.dart';
 import 'package:paypara/models/expense/expense.dart';
+import 'package:paypara/services/auth/auth_service.dart';
 
 class ExpenseService {
   static ExpenseService _instance;
@@ -24,14 +26,17 @@ class ExpenseService {
   }) async {
     dynamic model = {
       "isActive": true,
-      "userId": "034cdf65-25d9-4218-9881-08011c81de01",
+      "userId": AuthService.instance.account.result.userId,
       "groupId": groupID,
       "categoryId": categoryID,
       "price": price,
       "note": note,
       "date": "${date.toIso8601String()}",
     };
-    await NetworkManager.instance.addExpense(data: model);
+    Expense expense = await NetworkManager.instance.addExpense(data: model);
+    if (expense.isSuccessful) {
+      NavigationService.navigateToPop(context);
+    }
   }
 
   Future getExpenses({

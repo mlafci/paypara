@@ -45,8 +45,9 @@ class _GroupDetailViewState extends State<GroupDetailView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          NavigationService.navigateToPage(context, NavigationConstants.newExpenseView, widget.group);
+        onPressed: () async {
+          await NavigationService.navigateToPage(context, NavigationConstants.newExpenseView, widget.group);
+          setState(() {});
         },
         child: Icon(
           CupertinoIcons.add,

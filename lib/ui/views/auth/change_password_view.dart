@@ -1,24 +1,23 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
-import 'package:paypara/services/auth/auth_service.dart';
 import 'package:paypara/ui/view_models/text_input/text_input_model.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/button.dart';
 import 'package:paypara/ui/widgets/textField.dart';
 
-class ResetPasswordView extends StatefulWidget {
+class ChangePasswordView extends StatefulWidget {
   @override
-  ResetPasswordViewState createState() => ResetPasswordViewState();
+  ChangePasswordViewState createState() => ChangePasswordViewState();
 }
 
-class ResetPasswordViewState extends State<ResetPasswordView> {
+class ChangePasswordViewState extends State<ChangePasswordView> {
   TextInputModel currentPassword, newPassword1, newPassword2;
+  bool loading = false;
   @override
   void initState() {
     currentPassword = TextInputModel(
@@ -47,13 +46,11 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    Utility.height =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
-    Utility.width =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
+    Utility.height = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.height;
+    Utility.width = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width;
     return Scaffold(
       appBar: appBar(
-        text: 'ŞİFRE SIFIRLAMA',
+        text: 'ŞİFRE YENİLEME',
         isBack: true,
         context: context,
       ),
@@ -87,9 +84,9 @@ class ResetPasswordViewState extends State<ResetPasswordView> {
               text: "Şifremi değiştir",
               isPrimary: true,
               function: () {
-                NavigationService.navigateToPage(
-                    context, NavigationConstants.loginView);
+                NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
               },
+              loading: loading,
             ),
             SizedBox(
               height: Utility.dynamicHeight(0.03),
