@@ -40,7 +40,8 @@ class GroupService {
     };
     myGroup = await NetworkManager.instance.addGroup(data: model);
     if (myGroup.isSuccessful) {
-      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(
+          context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -56,7 +57,13 @@ class GroupService {
   Future getGroup({
     BuildContext context,
   }) async {
-    myGroup = await NetworkManager.instance.getGroup(data: AuthService.instance.account.result.userId);
+    myGroup = await NetworkManager.instance
+        .getGroup(data: AuthService.instance.account.result.userId);
+  }
+
+  Future<User> getGroupUsers({BuildContext context, int groupId}) async {
+    var result = await NetworkManager.instance.getGroupUsers(data: groupId);
+    return result;
   }
 
   Future deleteGroupFromUser({BuildContext context, int groupId}) async {
@@ -68,7 +75,32 @@ class GroupService {
     };
     var result = await NetworkManager.instance.deleteGroupFromUser(data: model);
     if (result.isSuccessful) {
-      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(
+          context, NavigationConstants.homeView);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Bir hata oluştu!",
+            style: TextStyleManager.instance.headline5WhiteMedium,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future deleteUserFromGroup(
+      {BuildContext context, int groupId, String userId}) async {
+    dynamic model = {
+      "GroupId": groupId,
+      "UserId": userId,
+      "IsAdmin": true,
+      "IsActive": true,
+    };
+    var result = await NetworkManager.instance.deleteGroupFromUser(data: model);
+    if (result.isSuccessful) {
+      NavigationService.navigateToPageClear(
+          context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
