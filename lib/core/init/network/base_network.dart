@@ -18,7 +18,8 @@ class BaseService {
       Uri.http(ApplicationConstants.getBaseURL(baseUrl), path, data),
       headers: {
         "content-type": "application/json",
-        'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+        'Authorization':
+            "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
       },
     ).timeout(
       Duration(seconds: ApplicationConstants.RESPONSE_TIMEOUT),
@@ -61,7 +62,96 @@ class BaseService {
           Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
           headers: {
             "content-type": "application/json",
-            'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+            'Authorization': "Bearer " +
+                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+          },
+          body: json.encode(data),
+        )
+        .timeout(
+          Duration(seconds: ApplicationConstants.RESPONSE_TIMEOUT),
+          /*
+      onTimeout: () {
+        return Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConnectionTimeout(),
+          ),
+        );
+      },
+      */
+        );
+    switch (response.statusCode) {
+      case HttpStatus.ok:
+        return _jsonBodyParser<T>(model, response.body);
+        break;
+      case HttpStatus.unauthorized:
+        //logout
+        break;
+      case HttpStatus.badRequest:
+        //return _jsonBodyParser<T>(model, response.body);
+        break;
+      default:
+        throw response.body;
+    }
+  }
+
+  Future<dynamic> put<T extends IBaseModel>({
+    BaseURL baseUrl,
+    String path,
+    IBaseModel model,
+    Map<String, dynamic> data,
+  }) async {
+    final response = await http
+        .put(
+          Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
+          headers: {
+            "content-type": "application/json",
+            'Authorization': "Bearer " +
+                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+          },
+          body: json.encode(data),
+        )
+        .timeout(
+          Duration(seconds: ApplicationConstants.RESPONSE_TIMEOUT),
+          /*
+      onTimeout: () {
+        return Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConnectionTimeout(),
+          ),
+        );
+      },
+      */
+        );
+    switch (response.statusCode) {
+      case HttpStatus.ok:
+        return _jsonBodyParser<T>(model, response.body);
+        break;
+      case HttpStatus.unauthorized:
+        //logout
+        break;
+      case HttpStatus.badRequest:
+        //return _jsonBodyParser<T>(model, response.body);
+        break;
+      default:
+        throw response.body;
+    }
+  }
+
+  Future<dynamic> delete<T extends IBaseModel>({
+    BaseURL baseUrl,
+    String path,
+    IBaseModel model,
+    Map<String, dynamic> data,
+  }) async {
+    final response = await http
+        .delete(
+          Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
+          headers: {
+            "content-type": "application/json",
+            'Authorization': "Bearer " +
+                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
           },
           body: json.encode(data),
         )

@@ -5,9 +5,14 @@ import 'package:paypara/core/constants/app_constant.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/core/init/navigation/navigation_service.dart';
 import 'package:paypara/core/init/theme/app_theme.dart';
+import 'package:paypara/services/auth/auth_service.dart';
+
+import 'core/init/locale_manager.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocaleManager.preferencesInit();
+  bool isLogin = AuthService.instance.isLogin();
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -19,7 +24,9 @@ Future main() async {
       theme: AppTheme.instance.theme,
       debugShowCheckedModeBanner: false,
       title: ApplicationConstants.appName,
-      initialRoute: NavigationConstants.loginView,
+      initialRoute: isLogin
+          ? NavigationConstants.homeView
+          : NavigationConstants.loginView,
       locale: Locale("tr", "TR"),
       supportedLocales: [Locale("tr", "TR")],
       localizationsDelegates: [

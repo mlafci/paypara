@@ -13,16 +13,8 @@ class Account {
 }
 
 class Result {
-  Result(
-      {this.token,
-      this.refreshToken,
-      this.userId,
-      this.name,
-      this.surname,
-      this.image});
+  Result({this.userId, this.name, this.surname, this.image});
 
-  String token;
-  String refreshToken;
   String userId;
   String name;
   String surname;
@@ -30,11 +22,10 @@ class Result {
 
   factory Result.fromJson(dynamic json) {
     return Result(
-        token: json["token"],
-        refreshToken: json["refreshToken"],
-        userId: json["userId"],
-        name: json["name"],
-        surname: json["surname"],
-        image: json["image"]);
+      userId: json["userId"],
+      name: json["name"],
+      surname: json["surname"],
+      image: json["image"],
+    );
   }
 }

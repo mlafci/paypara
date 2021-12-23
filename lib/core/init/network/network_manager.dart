@@ -14,10 +14,16 @@ class NetworkManager extends BaseService {
 
   NetworkManager._init();
 
-  // TODO Değişicek
   Future login(dynamic data) async {
     return await NetworkService.requsetPost(
       path: "/accounts/login",
+      data: data,
+    );
+  }
+
+  Future updateProfile(dynamic data) async {
+    return await NetworkService.requsetPut(
+      path: "/user/UserProfileByUserId",
       data: data,
     );
   }
@@ -46,12 +52,12 @@ class NetworkManager extends BaseService {
     );
   }
 
-  //Değiştirilecek
-  Future deleteGroupFromUser({dynamic data}) async {
-    return await post(
+  Future<Group> deleteGroupFromUser({dynamic data}) async {
+    return await delete<Group>(
       baseUrl: BaseURL.URL,
       path: "/groups/DeleteUserInGroupByUserId",
       data: data,
+      model: Group(),
     );
   }
 

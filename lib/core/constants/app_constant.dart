@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:paypara/core/constants/enums/base_url_enum.dart';
 
 class ApplicationConstants {
@@ -11,7 +10,7 @@ class ApplicationConstants {
     }
   }
 
-   static List<String> currencyList = ["\$", "€", "₺"];
+  static List<String> currencyList = ["$", "€", "₺"];
 
   static const RESPONSE_TIMEOUT = 25;
   static const socialWebSite = "";

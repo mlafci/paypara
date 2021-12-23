@@ -1,1 +1,1 @@
-enum PreferencesKeys { TOKEN, USERNAME }
+enum PreferencesKeys { USERID, NAME, SURNAME, IMAGE, TOKEN }

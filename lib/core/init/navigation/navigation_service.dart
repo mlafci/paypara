@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:paypara/core/constants/navigation_constant.dart';
 import 'package:paypara/ui/views/auth/login_view.dart';
 import 'package:paypara/ui/views/auth/register_view.dart';
-import 'package:paypara/ui/views/auth/reset_password_view.dart';
+import 'package:paypara/ui/views/auth/change_password_view.dart';
 import 'package:paypara/ui/views/expenses/recent_expenses_view.dart';
 import 'package:paypara/ui/views/group/group_detail_view.dart';
 import 'package:paypara/ui/views/group/group_setting_view.dart';
@@ -43,16 +43,15 @@ class NavigationService {
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case NavigationConstants.homeView:
-      return MaterialPageRoute(
-          builder: (_) => HomeView(account: settings.arguments));
+      return MaterialPageRoute(builder: (_) => HomeView());
     case NavigationConstants.loginView:
       return MaterialPageRoute(builder: (_) => LoginView());
     case NavigationConstants.profileView:
       return MaterialPageRoute(builder: (_) => ProfileView());
     case NavigationConstants.registerView:
       return MaterialPageRoute(builder: (_) => RegisterView());
-    case NavigationConstants.resetPasswordView:
-      return MaterialPageRoute(builder: (_) => ResetPasswordView());
+    case NavigationConstants.changePasswordView:
+      return MaterialPageRoute(builder: (_) => ChangePasswordView());
     case NavigationConstants.recentExpensesView:
       return MaterialPageRoute(
           builder: (_) => RecentExpensesView(group: settings.arguments));
