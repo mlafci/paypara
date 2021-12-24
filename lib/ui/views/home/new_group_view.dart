@@ -20,6 +20,7 @@ class NewGroupView extends StatefulWidget {
 }
 
 class _NewGroupViewState extends State<NewGroupView> {
+  bool loading = false;
   ImagePickerModel groupImage = ImagePickerModel();
   TextInputModel groupName, userName;
   String currencyTpye = "Dolar";
@@ -32,14 +33,14 @@ class _NewGroupViewState extends State<NewGroupView> {
       hintText: "Grup Adı",
       icon: Icon(
         CupertinoIcons.mail,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     userName = TextInputModel(
       hintText: "Kullanıcı Adı",
       icon: Icon(
         CupertinoIcons.person,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
       isSearchText: true,
     );
@@ -55,235 +56,245 @@ class _NewGroupViewState extends State<NewGroupView> {
       appBar: appBar(text: 'Yeni Grup', isBack: true, context: context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          GroupService.instance.addGroup(
-            context: context,
-            groupName: groupName,
-            currencyType: type,
-            image: groupImage.image,
-            groupUser: groupUser,
-          );
+          addGroup();
         },
-        child: Icon(
-          CupertinoIcons.checkmark_alt,
-        ),
+        child: (loading)
+            ? CircularProgressIndicator(
+                color: ColorManager.instance.white,
+              )
+            : Icon(
+                CupertinoIcons.checkmark_alt,
+              ),
       ),
       body: Container(
         width: Utility.width,
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            Stack(
-              children: [
-                CircleAvatar(
-                  radius: Utility.dynamicHeight(0.08),
-                  backgroundImage: (groupImage.image != null)
-                      ? MemoryImage(
-                          base64Decode(groupImage.image),
-                        )
-                      : AssetImage(
-                          AssetConstant.user,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: Utility.dynamicHeight(0.08),
+                    backgroundImage: (groupImage.image != null)
+                        ? MemoryImage(
+                            base64Decode(groupImage.image),
+                          )
+                        : AssetImage(
+                            AssetConstant.user,
+                          ),
+                    backgroundColor: ColorManager.instance.grey,
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await ImagePickerController.getImageFromGallery(groupImage);
+                        setState(() {});
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(
+                          Utility.dynamicHeight(0.005),
                         ),
-                  backgroundColor: ColorManager.instance.grey,
-                ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: GestureDetector(
-                    onTap: () async {
-                      await ImagePickerController.getImageFromGallery(groupImage);
-                      setState(() {});
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(
-                        Utility.dynamicHeight(0.005),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.instance.black,
-                      ),
-                      child: Icon(
-                        CupertinoIcons.pencil,
-                        color: ColorManager.instance.white,
-                        size: Utility.dynamicHeight(0.03),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ColorManager.instance.black,
+                        ),
+                        child: Icon(
+                          CupertinoIcons.pencil,
+                          color: ColorManager.instance.white,
+                          size: Utility.dynamicHeight(0.03),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.01),
-            ),
-            Text("Grup Resmi"),
-            SizedBox(
-              height: Utility.dynamicHeight(0.05),
-            ),
-            textField(textInputModel: groupName),
-            SizedBox(
-              height: Utility.dynamicHeight(0.02),
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: Utility.dynamicWidth(0.05),
-                ),
-                Text(
-                  "Para Birimi: ",
-                  style: TextStyleManager.instance.headline5BlackRegular,
-                ),
-                SizedBox(
-                  width: Utility.dynamicWidth(0.03),
-                ),
-                DropdownButton<String>(
-                  value: currencyTpye,
-                  items: <String>['Dolar', 'Euro', 'Türk Lirası'].map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (selectedItem) {
-                    setState(
-                      () {
-                        currencyTpye = selectedItem;
-                        if (selectedItem == "Dolar") {
-                          type = 0;
-                        } else if (selectedItem == "Euro") {
-                          type = 1;
-                        } else {
-                          type = 2;
-                        }
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.02),
-            ),
-            textField(
-              textInputModel: userName,
-              function: () async {
-                await UserService.instance.searchUser(context: context, userName: userName);
-                setState(() {});
-              },
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.02),
-            ),
-            Container(
-              height: Utility.dynamicHeight(0.08),
-              width: Utility.dynamicWidth(0.9),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: groupUser.result.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      right: Utility.dynamicWidth(0.04),
-                    ),
-                    child: Column(
-                      children: [
-                        Stack(
-                          children: [
-                            CircleAvatar(
-                              radius: Utility.dynamicHeight(0.025),
-                              backgroundImage: MemoryImage(
-                                base64Decode(groupUser.result[index].image),
-                              ),
-                            ),
-                            Positioned(
-                              right: 0,
-                              bottom: 0,
-                              child: GestureDetector(
-                                onTap: () async {
-                                  groupUser.result.removeAt(index);
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                    Utility.dynamicHeight(0.005),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.red,
-                                  ),
-                                  child: Icon(
-                                    CupertinoIcons.xmark,
-                                    color: ColorManager.instance.white,
-                                    size: Utility.dynamicHeight(0.012),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: Utility.dynamicHeight(0.005),
-                        ),
-                        Text(
-                          "${groupUser.result[index].name}",
-                        ),
-                      ],
-                    ),
-                  );
+                ],
+              ),
+              SizedBox(
+                height: Utility.dynamicHeight(0.01),
+              ),
+              Text("Grup Resmi"),
+              SizedBox(
+                height: Utility.dynamicHeight(0.05),
+              ),
+              textField(textInputModel: groupName),
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Text(
+                    "Para Birimi: ",
+                    style: TextStyleManager.instance.headline5BlackRegular,
+                  ),
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.03),
+                  ),
+                  DropdownButton<String>(
+                    value: currencyTpye,
+                    items: <String>['Dolar', 'Euro', 'Türk Lirası'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (selectedItem) {
+                      setState(
+                        () {
+                          currencyTpye = selectedItem;
+                          if (selectedItem == "Dolar") {
+                            type = 0;
+                          } else if (selectedItem == "Euro") {
+                            type = 1;
+                          } else {
+                            type = 2;
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              textField(
+                textInputModel: userName,
+                function: () async {
+                  await UserService.instance.searchUser(context: context, userName: userName);
+                  setState(() {});
                 },
               ),
-            ),
-            SizedBox(
-              height: Utility.dynamicHeight(0.02),
-            ),
-            (UserService.instance.user.result != null)
-                ? Expanded(
-                    child: Container(
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              (groupUser.result.length != 0)
+                  ? Container(
+                      height: Utility.dynamicHeight(0.08),
                       width: Utility.dynamicWidth(0.9),
                       child: ListView.builder(
-                        itemCount: UserService.instance.user.result.length,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: groupUser.result.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.only(
-                              bottom: Utility.dynamicHeight(0.02),
+                              right: Utility.dynamicWidth(0.04),
                             ),
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (!groupUser.result.any((element) => element.id == UserService.instance.user.result[index].id)) {
-                                    groupUser.result.add(UserService.instance.user.result[index]);
-                                  }
-                                });
-                              },
-                              child: Container(
-                                child: Row(
-                                  children: <Widget>[
+                            child: Column(
+                              children: [
+                                Stack(
+                                  children: [
                                     CircleAvatar(
-                                      radius: Utility.dynamicHeight(0.03),
+                                      radius: Utility.dynamicHeight(0.025),
                                       backgroundImage: MemoryImage(
-                                        base64Decode(UserService.instance.user.result[index].image),
+                                        base64Decode(groupUser.result[index].image),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: Utility.dynamicWidth(0.05),
-                                    ),
-                                    Text(
-                                      "${UserService.instance.user.result[index].name}",
-                                      style: TextStyleManager.instance.headline5BlackRegular,
+                                    Positioned(
+                                      right: 0,
+                                      bottom: 0,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          groupUser.result.removeAt(index);
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(
+                                            Utility.dynamicHeight(0.005),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.red,
+                                          ),
+                                          child: Icon(
+                                            CupertinoIcons.xmark,
+                                            color: ColorManager.instance.white,
+                                            size: Utility.dynamicHeight(0.012),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
+                                SizedBox(
+                                  height: Utility.dynamicHeight(0.005),
+                                ),
+                                Text(
+                                  "${groupUser.result[index].name}",
+                                ),
+                              ],
                             ),
                           );
                         },
                       ),
-                    ),
-                  )
-                : Container(),
-          ],
+                    )
+                  : Container(),
+              SizedBox(
+                height: Utility.dynamicHeight(0.02),
+              ),
+              (UserService.instance.user.result != null)
+                  ? Container(
+                      width: Utility.dynamicWidth(0.9),
+                      child: Column(
+                        children: [
+                          for (int index = 0; index < UserService.instance.user.result.length; index++)
+                            Padding(
+                              padding: EdgeInsets.only(
+                                bottom: Utility.dynamicHeight(0.02),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (!groupUser.result.any((element) => element.id == UserService.instance.user.result[index].id)) {
+                                      groupUser.result.add(UserService.instance.user.result[index]);
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        radius: Utility.dynamicHeight(0.03),
+                                        backgroundImage: MemoryImage(
+                                          base64Decode(UserService.instance.user.result[index].image),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: Utility.dynamicWidth(0.05),
+                                      ),
+                                      Text(
+                                        "${UserService.instance.user.result[index].name}",
+                                        style: TextStyleManager.instance.headline5BlackRegular,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            )
+                        ],
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Future addGroup() async {
+    setState(() {
+      loading = true;
+    });
+    await GroupService.instance.addGroup(context: context, groupName: groupName, currencyType: type, image: groupImage.image, groupUser: groupUser);
+    setState(() {
+      loading = false;
+    });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/init/theme/text_style_manager.dart';
@@ -6,6 +7,7 @@ import 'package:paypara/models/group/group.dart';
 import 'package:paypara/services/expense/expense_service.dart';
 import 'package:paypara/ui/widgets/appBar.dart';
 import 'package:paypara/ui/widgets/listTile.dart';
+import 'package:paypara/models/expense/expense.dart' as Expense;
 
 class RecentExpensesView extends StatefulWidget {
   final GroupDetail group;
@@ -20,6 +22,15 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
   bool loading = false;
   DateTime currentDate = DateTime.now();
   String filteredText = 'Bugün';
+  List<String> days = [
+    "Pazartesi",
+    "Salı",
+    "Çarşamba",
+    "Perşembe",
+    "Cuma",
+    "Cumartesi",
+    "Pazar",
+  ];
   @override
   void initState() {
     getLastExpensesByDate();
@@ -40,52 +51,60 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
           text: 'Son Harcamalar',
           isBack: true,
           actions: [
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: IconButton(
-                icon: Icon(Icons.date_range),
-                onPressed: () {
-                  _selectDate(context);
-                },
-                color: Colors.red,
-              ),
+            IconButton(
+              icon: Icon(Icons.date_range),
+              onPressed: () {
+                _selectDate(context);
+              },
+              color: Colors.red,
+              splashRadius: Utility.dynamicHeight(0.027),
+              iconSize: Utility.dynamicHeight(0.035),
             )
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(Utility.dynamicWidth(0.04)),
-          child: Container(
-            width: Utility.width,
+        body: Container(
+          width: Utility.width,
+          child: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(
-                  padding: EdgeInsets.all(Utility.dynamicWidth(0.03)),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      filteredText,
-                      style: TextStyleManager.instance.headline4BlackMedium,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: filteredExpenses.length,
-                    itemBuilder: (context, index) {
-                      return listTileWidget(
-                          categoryId: filteredExpenses[index].categoryId,
-                          subtitle:
-                              "${filteredExpenses[index].date.day}/${filteredExpenses[index].date.month}/${filteredExpenses[index].date.year}     (${filteredExpenses[index].nameSurname})",
-                          price: filteredExpenses[index].price,
-                          currencyType: widget.group.currencyType);
-                    },
-                  ),
-                ),
+                (filteredExpenses.length != 0)
+                    ? Column(
+                        children: [
+                          SizedBox(
+                            height: Utility.dynamicHeight(0.02),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: Utility.dynamicWidth(0.04)),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                filteredText,
+                                style: TextStyleManager.instance.headline4BlackMedium,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: Utility.dynamicHeight(0.02),
+                          ),
+                          for (int index = 0; index < filteredExpenses.length; index++)
+                            listTileWidget(
+                              categoryId: filteredExpenses[index].categoryId,
+                              date: "${filteredExpenses[index].date.day}/${filteredExpenses[index].date.month}/${filteredExpenses[index].date.year}",
+                              name: "${filteredExpenses[index].nameSurname}",
+                              price: filteredExpenses[index].price,
+                              currencyType: widget.group.currencyType,
+                              function: () {
+                                showModal(filteredExpenses[index]);
+                              },
+                            ),
+                        ],
+                      )
+                    : Container(),
                 SizedBox(
-                  height: 10,
+                  height: Utility.dynamicHeight(0.02),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(Utility.dynamicWidth(0.03)),
+                  padding: EdgeInsets.only(left: Utility.dynamicWidth(0.04)),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
@@ -94,18 +113,20 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: lastExpenses.length,
-                    itemBuilder: (context, index) {
-                      return listTileWidget(
-                          categoryId: lastExpenses[index].categoryId,
-                          subtitle: "${lastExpenses[index].date.day}/${lastExpenses[index].date.month}/${lastExpenses[index].date.year}     (${lastExpenses[index].nameSurname})",
-                          price: lastExpenses[index].price,
-                          currencyType: widget.group.currencyType);
+                SizedBox(
+                  height: Utility.dynamicHeight(0.02),
+                ),
+                for (int index = 0; index < lastExpenses.length; index++)
+                  listTileWidget(
+                    categoryId: lastExpenses[index].categoryId,
+                    date: "${lastExpenses[index].date.day}/${lastExpenses[index].date.month}/${lastExpenses[index].date.year}",
+                    name: "${lastExpenses[index].nameSurname}",
+                    price: lastExpenses[index].price,
+                    currencyType: widget.group.currencyType,
+                    function: () {
+                      showModal(lastExpenses[index]);
                     },
                   ),
-                ),
               ],
             ),
           ),
@@ -126,7 +147,7 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
         if (picked.compareDate(DateTime.now())) {
           filteredText = "Bugün";
         } else {
-          filteredText = picked.getDateFormat("dd-MMM-yyyy");
+          filteredText = "${days[picked.weekday]}  ${picked.getDateFormat("dd/MM/yyyy")}";
         }
       });
   }
@@ -139,5 +160,62 @@ class _RecentExpensesViewState extends State<RecentExpensesView> {
     setState(() {
       loading = false;
     });
+  }
+
+  showModal(Expense.Result expense) {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(Utility.borderRadius),
+          topRight: Radius.circular(Utility.borderRadius),
+        ),
+      ),
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return Container(
+            height: Utility.dynamicHeight(0.3),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: Utility.dynamicHeight(0.02),
+                ),
+                listTileWidget(
+                  categoryId: expense.categoryId,
+                  date: "${expense.date.day}/${expense.date.month}/${expense.date.year}",
+                  name: "${expense.nameSurname}",
+                  price: expense.price,
+                  currencyType: widget.group.currencyType,
+                  function: null,
+                ),
+                SizedBox(
+                  height: Utility.dynamicHeight(0.02),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: Utility.dynamicWidth(0.04)),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Açıklama:",
+                      style: TextStyleManager.instance.headline3BlackBold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(Utility.dynamicWidth(0.04)),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      expense.note,
+                      style: TextStyleManager.instance.headline5BlackRegular,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+      },
+    );
   }
 }

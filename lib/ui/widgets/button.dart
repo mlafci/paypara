@@ -24,7 +24,7 @@ Widget button({
             width: Utility.dynamicWidth(0.005),
             color: (function != null) ? ColorManager.instance.blue : ColorManager.instance.grey,
           ),
-          borderRadius: BorderRadius.circular(Utility.borderRadius),
+          borderRadius: BorderRadius.circular(Utility.dynamicWidth(0.03)),
         ),
       ),
       overlayColor: MaterialStateProperty.all(

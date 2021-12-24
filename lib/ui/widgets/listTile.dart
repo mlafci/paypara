@@ -1,26 +1,63 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:paypara/core/base/state/utility.dart';
 import 'package:paypara/core/init/theme/color_manager.dart';
 import 'package:paypara/core/constants/app_constant.dart';
+import 'package:paypara/core/init/theme/text_style_manager.dart';
 
-Widget listTileWidget({int categoryId, String subtitle, int price, int currencyType}) {
-  return Card(
-    child: ListTile(
-      onTap: () {},
-      leading: CircleAvatar(
-        backgroundColor: getCategoryColor(categoryId),
-        child: Icon(
-          getCategoryIcon(categoryId),
-          color: ColorManager.instance.white,
+Widget listTileWidget({int categoryId, String date, String name, int price, int currencyType, Function function}) {
+  return ListTile(
+    onTap: function,
+    leading: Container(
+      width: Utility.dynamicHeight(0.05),
+      height: Utility.dynamicHeight(0.05),
+      decoration: BoxDecoration(
+        color: getCategoryColor(categoryId),
+        borderRadius: BorderRadius.circular(Utility.dynamicHeight(0.012)),
+      ),
+      child: Icon(
+        getCategoryIcon(categoryId),
+        color: ColorManager.instance.white,
+        size: Utility.dynamicHeight(0.03),
+      ),
+    ),
+    title: Text(
+      getCategoryName(categoryId),
+      style: TextStyle(
+        fontSize: Utility.dynamicHeight(0.02),
+        fontFamily: TextStyleManager.instance.medium,
+      ),
+    ),
+    subtitle: Row(
+      children: [
+        Container(
+          width: Utility.dynamicWidth(0.2),
+          child: Text(
+            date,
+            style: TextStyle(
+              fontSize: Utility.dynamicHeight(0.015),
+              fontFamily: TextStyleManager.instance.medium,
+            ),
+          ),
         ),
-      ),
-      title: Text(
-        getCategoryName(categoryId),
-      ),
-      subtitle: Text(subtitle),
-      trailing: Text(
-        '- $price ${ApplicationConstants.currencyList[currencyType]}',
-        style: TextStyle(color: Colors.red),
+        SizedBox(
+          width: Utility.dynamicWidth(0.01),
+        ),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: Utility.dynamicHeight(0.015),
+            fontFamily: TextStyleManager.instance.medium,
+          ),
+        ),
+      ],
+    ),
+    trailing: Text(
+      '- $price ${ApplicationConstants.currencyList[currencyType]}',
+      style: TextStyle(
+        color: Colors.red,
+        fontSize: Utility.dynamicHeight(0.015),
+        fontFamily: TextStyleManager.instance.medium,
       ),
     ),
   );
@@ -43,25 +80,25 @@ List<Map<String, dynamic>> categories = [
     "id": 2,
     "icon": CupertinoIcons.doc_chart,
     "name": "Fatura",
-    "color": ColorManager.instance.blue,
+    "color": Color(0xffee6c4d),
   },
   {
     "id": 3,
     "icon": CupertinoIcons.house_alt,
     "name": "Kira",
-    "color": ColorManager.instance.blue,
+    "color": Color(0xff87bba2),
   },
   {
     "id": 4,
     "icon": CupertinoIcons.music_note,
     "name": "Eğlence",
-    "color": ColorManager.instance.blue,
+    "color": Color(0xff778da9),
   },
   {
     "id": 5,
     "icon": CupertinoIcons.device_phone_portrait,
     "name": "Elektronik",
-    "color": ColorManager.instance.blue,
+    "color": ColorManager.instance.pink,
   },
   {
     "id": 6,
@@ -73,13 +110,13 @@ List<Map<String, dynamic>> categories = [
     "id": 7,
     "icon": Icons.local_cafe_outlined,
     "name": "Restorant&Cafe",
-    "color": ColorManager.instance.blue,
+    "color": Color(0xffee6c4d),
   },
   {
     "id": 8,
     "icon": CupertinoIcons.ellipsis_vertical,
     "name": "Diğer",
-    "color": ColorManager.instance.blue,
+    "color": Color(0xff87bba2),
   },
 ];
 

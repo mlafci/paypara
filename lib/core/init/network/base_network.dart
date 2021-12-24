@@ -18,8 +18,7 @@ class BaseService {
       Uri.http(ApplicationConstants.getBaseURL(baseUrl), path, data),
       headers: {
         "content-type": "application/json",
-        'Authorization':
-            "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+        'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
       },
     ).timeout(
       Duration(seconds: ApplicationConstants.RESPONSE_TIMEOUT),
@@ -62,8 +61,7 @@ class BaseService {
           Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
           headers: {
             "content-type": "application/json",
-            'Authorization': "Bearer " +
-                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+            'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
           },
           body: json.encode(data),
         )
@@ -106,8 +104,7 @@ class BaseService {
           Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
           headers: {
             "content-type": "application/json",
-            'Authorization': "Bearer " +
-                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+            'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
           },
           body: json.encode(data),
         )
@@ -150,8 +147,7 @@ class BaseService {
           Uri.http(ApplicationConstants.getBaseURL(baseUrl), path),
           headers: {
             "content-type": "application/json",
-            'Authorization': "Bearer " +
-                LocaleManager.instance.getString(PreferencesKeys.TOKEN),
+            'Authorization': "Bearer " + LocaleManager.instance.getString(PreferencesKeys.TOKEN),
           },
           body: json.encode(data),
         )

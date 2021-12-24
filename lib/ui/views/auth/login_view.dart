@@ -25,14 +25,14 @@ class _LoginViewState extends State<LoginView> {
       hintText: "E-posta adresiniz",
       icon: Icon(
         CupertinoIcons.mail,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     password = TextInputModel(
       hintText: "Şifreniz",
       icon: Icon(
         CupertinoIcons.lock,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
       obsecureText: true,
     );
@@ -57,16 +57,40 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(
                 height: Utility.dynamicHeight(0.05),
               ),
-              Text(
-                "PayPara",
-                style: TextStyleManager.instance.headline1BlackBold,
+              Row(
+                children: [
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Image.asset("assets/readme/paypara-logo.png", height: Utility.dynamicHeight(0.06)),
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Text(
+                    "PayPara",
+                    style: TextStyleManager.instance.headline1BlackBold,
+                  ),
+                ],
               ),
               SizedBox(
-                height: Utility.dynamicHeight(0.05),
+                height: Utility.dynamicHeight(0.02),
               ),
-              Image.asset("assets/readme/paypara-logo.png", height: Utility.dynamicHeight(0.25), width: Utility.dynamicWidth(90)),
+              Row(
+                children: [
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Container(
+                    width: Utility.dynamicWidth(0.8),
+                    child: Text(
+                      "Paranızı nereye harcadığınızı öğrenmek istiyorsanız doğru yerdesiniz.",
+                      style: TextStyleManager.instance.headline5BlackRegular,
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
-                height: Utility.dynamicHeight(0.05),
+                height: Utility.dynamicHeight(0.1),
               ),
               textField(textInputModel: email),
               SizedBox(
@@ -74,7 +98,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               textField(textInputModel: password),
               SizedBox(
-                height: Utility.dynamicHeight(0.05),
+                height: Utility.dynamicHeight(0.35),
               ),
               button(text: "Giriş Yap", isPrimary: true, function: login, loading: loading),
               SizedBox(

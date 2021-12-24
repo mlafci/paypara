@@ -12,8 +12,7 @@ class Expense extends IBaseModel {
   bool isSuccessful;
 
   fromJson(dynamic json) => Expense(
-        result:
-            List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
+        result: List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
         error: json["error"],
         isSuccessful: json["isSuccessful"],
       );

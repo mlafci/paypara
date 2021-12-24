@@ -31,7 +31,7 @@ class _NewExpenseViewState extends State<NewExpenseView> {
       hintText: "Tutar",
       icon: Icon(
         CupertinoIcons.money_dollar,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
       textInputFormatter: [FilteringTextInputFormatter.digitsOnly],
     );
@@ -39,7 +39,7 @@ class _NewExpenseViewState extends State<NewExpenseView> {
       hintText: "Açıklama",
       icon: Icon(
         CupertinoIcons.doc,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     super.initState();
@@ -56,16 +56,16 @@ class _NewExpenseViewState extends State<NewExpenseView> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: Utility.dynamicHeight(0.05),
+              height: Utility.dynamicHeight(0.03),
             ),
             Row(
               children: [
                 SizedBox(
-                  width: Utility.dynamicWidth(0.05),
+                  width: Utility.dynamicWidth(0.04),
                 ),
                 Text(
                   "Kategoriler",
-                  style: TextStyleManager.instance.headline2BlackMedium,
+                  style: TextStyleManager.instance.headline5BlackMedium,
                 ),
               ],
             ),
@@ -73,7 +73,7 @@ class _NewExpenseViewState extends State<NewExpenseView> {
               height: Utility.dynamicHeight(0.02),
             ),
             Container(
-              height: Utility.dynamicHeight(0.12),
+              height: Utility.dynamicHeight(0.11),
               child: ListView.builder(
                 padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
                 scrollDirection: Axis.horizontal,
@@ -90,26 +90,30 @@ class _NewExpenseViewState extends State<NewExpenseView> {
                       child: Column(
                         children: [
                           Container(
-                            width: Utility.dynamicHeight(0.08),
-                            height: Utility.dynamicHeight(0.08),
+                            width: Utility.dynamicHeight(0.075),
+                            height: Utility.dynamicHeight(0.075),
                             decoration: BoxDecoration(
-                              color: (categoryID == index) ? ColorManager.instance.blue : ColorManager.instance.grey,
-                              borderRadius: BorderRadius.circular(Utility.borderRadius),
+                              color: categoryID == index ? categories[index]["color"] : ColorManager.instance.white,
+                              borderRadius: BorderRadius.circular(Utility.dynamicHeight(0.018)),
+                              border: Border.all(
+                                color: categories[index]["color"],
+                                width: 2,
+                              ),
                             ),
                             child: Icon(
                               categories[index]["icon"],
-                              color: ColorManager.instance.white,
-                              size: Utility.dynamicHeight(0.05),
+                              color: categoryID == index ? ColorManager.instance.white : categories[index]["color"],
+                              size: Utility.dynamicHeight(0.04),
                             ),
                           ),
                           SizedBox(
-                            height: Utility.dynamicHeight(0.01),
+                            height: Utility.dynamicHeight(0.005),
                           ),
                           Text(
                             categories[index]["name"],
                             style: TextStyle(
-                              fontSize: Utility.dynamicHeight(0.015),
-                              fontFamily: TextStyleManager.instance.regular,
+                              fontSize: Utility.dynamicHeight(0.013),
+                              fontFamily: TextStyleManager.instance.medium,
                             ),
                           )
                         ],
@@ -118,6 +122,20 @@ class _NewExpenseViewState extends State<NewExpenseView> {
                   );
                 },
               ),
+            ),
+            SizedBox(
+              height: Utility.dynamicHeight(0.02),
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: Utility.dynamicWidth(0.04),
+                ),
+                Text(
+                  "Harcama Detayları",
+                  style: TextStyleManager.instance.headline5BlackMedium,
+                ),
+              ],
             ),
             SizedBox(
               height: Utility.dynamicHeight(0.02),
@@ -133,30 +151,30 @@ class _NewExpenseViewState extends State<NewExpenseView> {
             Row(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: Utility.dynamicWidth(0.05)),
-                  child: Text(
-                    "${date.day} / ${date.month} / ${date.year}",
-                    style: TextStyle(
-                      fontSize: Utility.dynamicHeight(0.02),
+                  padding: EdgeInsets.only(left: Utility.dynamicWidth(0.04)),
+                  child: IconButton(
+                    onPressed: () {
+                      _selectDate();
+                    },
+                    icon: Icon(
+                      CupertinoIcons.calendar,
+                      size: Utility.dynamicHeight(0.035),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: Utility.dynamicWidth(0.05),
+                  width: Utility.dynamicWidth(0.02),
                 ),
-                IconButton(
-                  onPressed: () {
-                    _selectDate();
-                  },
-                  icon: Icon(
-                    CupertinoIcons.calendar,
-                    size: Utility.dynamicHeight(0.035),
+                Text(
+                  "${date.day} / ${date.month} / ${date.year}",
+                  style: TextStyle(
+                    fontSize: Utility.dynamicHeight(0.02),
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(
-              height: Utility.dynamicHeight(0.1),
+              height: Utility.dynamicHeight(0.3),
             ),
             button(
               loading: loading,

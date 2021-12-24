@@ -74,6 +74,13 @@ class TextStyleManager {
         fontSize: headline5,
         fontFamily: regular,
       );
+
+  TextStyle get headline5BlackMedium => TextStyle(
+        color: ColorManager.instance.black,
+        fontSize: headline5,
+        fontFamily: medium,
+      );
+
   // headline5
   TextStyle get headline5WhiteMedium => TextStyle(
         color: ColorManager.instance.white,

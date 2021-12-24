@@ -24,21 +24,21 @@ class ChangePasswordViewState extends State<ChangePasswordView> {
       hintText: "Eski şifreniz",
       icon: Icon(
         CupertinoIcons.lock,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     newPassword1 = TextInputModel(
       hintText: "Yeni şifreniz",
       icon: Icon(
         CupertinoIcons.lock,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     newPassword2 = TextInputModel(
       hintText: "Yeni şifrenizi doğrulayın",
       icon: Icon(
         CupertinoIcons.lock,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     super.initState();

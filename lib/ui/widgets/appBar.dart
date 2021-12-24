@@ -10,6 +10,7 @@ Widget appBar({BuildContext context, String text, bool isBack, List<Widget> acti
       backgroundColor: ColorManager.instance.white,
       automaticallyImplyLeading: false,
       elevation: 1,
+      toolbarHeight: Utility.dynamicHeight(0.06),
       title: Text(
         text,
         style: TextStyleManager.instance.headline4BlackMedium,

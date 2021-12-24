@@ -33,7 +33,7 @@ class ExpenseService {
       "note": note,
       "date": "${date.toIso8601String()}",
     };
-    Expense expense = await NetworkManager.instance.addExpense(data: model);
+    expense = await NetworkManager.instance.addExpense(data: model);
     if (expense.isSuccessful) {
       NavigationService.navigateToPop(context);
     }
@@ -52,22 +52,14 @@ class ExpenseService {
   }
 
   List<Result> getExpensesByDate(DateTime dateTime) {
-    return ExpenseService.instance.expense.result
-        .where((element) => element.date.compareDate(dateTime))
-        .toList();
+    return ExpenseService.instance.expense.result.where((element) => element.date.compareDate(dateTime)).toList();
   }
 
   List<Result> getLastExpenses() {
-    return ExpenseService.instance.expense.result
-        .where((element) => !element.date.compareDate(DateTime.now()))
-        .toList();
+    return ExpenseService.instance.expense.result.where((element) => !element.date.compareDate(DateTime.now())).toList();
   }
 
-  List<Result> getExpensesByCategoryId(
-    int categoryId,
-  ) {
-    return ExpenseService._instance.expense.result
-        .where((element) => element.categoryId == categoryId)
-        .toList();
+  List<Result> getExpensesByCategoryId(int categoryId) {
+    return ExpenseService.instance.expense.result.where((element) => element.categoryId == categoryId).toList();
   }
 }

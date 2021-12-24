@@ -19,7 +19,6 @@ Widget textField({
       readOnly: readOnly,
       controller: textInputModel.controller,
       focusNode: textInputModel.focusNode,
-      //style: TextStyleManager.instance.headline5BlackRegular,
       obscureText: textInputModel.obsecureText,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
@@ -29,22 +28,20 @@ Widget textField({
         filled: true,
         fillColor: ColorManager.instance.white,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Utility.borderRadius),
-          borderSide: BorderSide(
-            color: ColorManager.instance.grey,
-          ),
+          borderRadius: BorderRadius.circular(Utility.dynamicWidth(0.03)),
+          borderSide: BorderSide(color: Colors.grey[400], width: Utility.dynamicWidth(0.003)),
           gapPadding: 2,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Utility.borderRadius),
+          borderRadius: BorderRadius.circular(Utility.dynamicWidth(0.03)),
           borderSide: BorderSide(
-            color: (readOnly) ? ColorManager.instance.grey : ColorManager.instance.blue,
+            color: (readOnly) ? Colors.grey[500] : Colors.grey[800],
             width: 1.5,
           ),
           gapPadding: 2,
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Utility.borderRadius),
+          borderRadius: BorderRadius.circular(Utility.dynamicWidth(0.03)),
           borderSide: BorderSide(
             color: Colors.red,
             width: 1.5,
@@ -52,7 +49,7 @@ Widget textField({
           gapPadding: 2,
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(Utility.borderRadius),
+          borderRadius: BorderRadius.circular(Utility.dynamicWidth(0.03)),
           borderSide: BorderSide(
             color: Colors.red,
             width: 1.5,
@@ -68,7 +65,6 @@ Widget textField({
             : null,
         errorText: textInputModel.errorText,
         hintText: textInputModel.hintText,
-        //hintStyle: TextStyleManager.instance.headline5GreyRegular,
       ),
       onChanged: (value) {
         if (function != null) {

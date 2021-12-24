@@ -32,14 +32,14 @@ class _ProfileViewState extends State<ProfileView> {
       hintText: "Adınız",
       icon: Icon(
         CupertinoIcons.person,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     surname = TextInputModel(
       hintText: "Soyadınız",
       icon: Icon(
         CupertinoIcons.person,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     setState(() {
@@ -181,7 +181,9 @@ class _ProfileViewState extends State<ProfileView> {
                       icon: Icon(CupertinoIcons.xmark_circle_fill),
                       iconSize: Utility.dynamicHeight(0.04),
                       color: Colors.red,
-                      onPressed: () => {GroupService.instance.deleteGroupFromUser(context: context, groupId: GroupService.instance.myGroup.result.groupDetails[index].id)},
+                      onPressed: () {
+                        leaveGroup(index);
+                      },
                     ),
                   ),
                 ),
@@ -200,6 +202,16 @@ class _ProfileViewState extends State<ProfileView> {
       loading = true;
     });
     await AuthService.instance.updateProfile(context: context, name: name, surname: surname, image: userImage.image);
+    setState(() {
+      loading = false;
+    });
+  }
+
+  Future leaveGroup(int index) async {
+    setState(() {
+      loading = true;
+    });
+    await GroupService.instance.deleteGroupFromUser(context: context, groupId: GroupService.instance.myGroup.result.groupDetails[index].id);
     setState(() {
       loading = false;
     });

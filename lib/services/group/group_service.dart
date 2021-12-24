@@ -30,6 +30,7 @@ class GroupService {
     groupUser.result.forEach((user) {
       groupUsers.add(user.id);
     });
+    groupUsers.add(AuthService.instance.account.result.userId);
     dynamic model = {
       "name": groupName.controller.text,
       "currencyType": currencyType,
@@ -40,8 +41,7 @@ class GroupService {
     };
     myGroup = await NetworkManager.instance.addGroup(data: model);
     if (myGroup.isSuccessful) {
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -57,8 +57,8 @@ class GroupService {
   Future getGroup({
     BuildContext context,
   }) async {
-    myGroup = await NetworkManager.instance
-        .getGroup(data: AuthService.instance.account.result.userId);
+    print(AuthService.instance.account.result.userId);
+    myGroup = await NetworkManager.instance.getGroup(data: AuthService.instance.account.result.userId);
   }
 
   Future<User> getGroupUsers({BuildContext context, int groupId}) async {
@@ -75,8 +75,7 @@ class GroupService {
     };
     var result = await NetworkManager.instance.deleteGroupFromUser(data: model);
     if (result.isSuccessful) {
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -89,8 +88,7 @@ class GroupService {
     }
   }
 
-  Future deleteUserFromGroup(
-      {BuildContext context, int groupId, String userId}) async {
+  Future deleteUserFromGroup({BuildContext context, int groupId, String userId}) async {
     dynamic model = {
       "GroupId": groupId,
       "UserId": userId,
@@ -99,8 +97,7 @@ class GroupService {
     };
     var result = await NetworkManager.instance.deleteGroupFromUser(data: model);
     if (result.isSuccessful) {
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

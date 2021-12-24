@@ -30,28 +30,28 @@ class RegisterViewState extends State<RegisterView> {
       hintText: "E-posta adresiniz",
       icon: Icon(
         CupertinoIcons.mail,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     name = TextInputModel(
       hintText: "Adınız",
       icon: Icon(
-        CupertinoIcons.person,
-        color: ColorManager.instance.pink,
+        CupertinoIcons.person_fill,
+        color: Colors.grey[800],
       ),
     );
     surname = TextInputModel(
       hintText: "Soyadınız",
       icon: Icon(
         CupertinoIcons.person,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
     );
     password = TextInputModel(
       hintText: "Şifreniz",
       icon: Icon(
         CupertinoIcons.lock,
-        color: ColorManager.instance.pink,
+        color: Colors.grey[800],
       ),
       obsecureText: true,
     );
@@ -76,9 +76,20 @@ class RegisterViewState extends State<RegisterView> {
               SizedBox(
                 height: Utility.dynamicHeight(0.05),
               ),
-              Text(
-                "PayPara",
-                style: TextStyleManager.instance.headline1BlackBold,
+              Row(
+                children: [
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Image.asset("assets/readme/paypara-logo.png", height: Utility.dynamicHeight(0.06)),
+                  SizedBox(
+                    width: Utility.dynamicWidth(0.05),
+                  ),
+                  Text(
+                    "PayPara",
+                    style: TextStyleManager.instance.headline1BlackBold,
+                  ),
+                ],
               ),
               SizedBox(
                 height: Utility.dynamicHeight(0.05),

@@ -26,20 +26,15 @@ class AuthService {
     TextInputModel email,
     TextInputModel password,
   }) async {
-    /*dynamic model = {
+    dynamic model = {
       "email": email.controller.text,
       "password": password.controller.text,
-    };*/
-    dynamic model = {
-      "email": "efefehmitayci@gmail.com",
-      "password": "Pp220799",
     };
     Response response = await NetworkManager.instance.login(model);
     if (response.statusCode == 200) {
       account = Account.fromJson(jsonDecode(response.body));
       await saveUser();
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -72,8 +67,7 @@ class AuthService {
     if (response.statusCode == 200) {
       account = Account.fromJson(jsonDecode(response.body));
       await saveUser();
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -102,8 +96,7 @@ class AuthService {
     if (response.statusCode == 200) {
       account = Account.fromJson(jsonDecode(response.body));
       await saveUser();
-      NavigationService.navigateToPageClear(
-          context, NavigationConstants.homeView);
+      NavigationService.navigateToPageClear(context, NavigationConstants.homeView);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -134,19 +127,14 @@ class AuthService {
   }
 
   Future saveUser() async {
-    await LocaleManager.instance
-        .setString(PreferencesKeys.USERID, account.result.userId);
-    await LocaleManager.instance
-        .setString(PreferencesKeys.NAME, account.result.name);
-    await LocaleManager.instance
-        .setString(PreferencesKeys.SURNAME, account.result.surname);
-    await LocaleManager.instance
-        .setString(PreferencesKeys.IMAGE, account.result.image);
+    await LocaleManager.instance.setString(PreferencesKeys.USERID, account.result.userId);
+    await LocaleManager.instance.setString(PreferencesKeys.NAME, account.result.name);
+    await LocaleManager.instance.setString(PreferencesKeys.SURNAME, account.result.surname);
+    await LocaleManager.instance.setString(PreferencesKeys.IMAGE, account.result.image);
   }
 
   Future logOut(BuildContext context) async {
     await LocaleManager.instance.removeAllSharedPreferences();
-    NavigationService.navigateToPageClear(
-        context, NavigationConstants.loginView);
+    NavigationService.navigateToPageClear(context, NavigationConstants.loginView);
   }
 }
